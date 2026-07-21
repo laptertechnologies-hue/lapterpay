@@ -9,7 +9,7 @@
     "dev:server": "npm --prefix server run dev",
     "build:client": "tsc -b && vite build",
     "build:server": "npm --prefix server run build",
-    "build": "npm run build:client && npm run build:server",
+    "build": "npm --prefix server install && npm run build:client && npm run build:server",
     "lint": "eslint .",
     "preview": "vite preview"
   },
