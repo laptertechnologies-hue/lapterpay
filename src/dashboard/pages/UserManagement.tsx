@@ -14,6 +14,7 @@ interface User {
   twoFactorStatus: 'Enabled' | 'Disabled'
   phone?: string
   role?: string
+  roleId?: string
   photo?: string
 }
 
@@ -21,6 +22,7 @@ export function UserManagement() {
   const [viewMode, setViewMode] = useState<'list' | 'create'>('list')
   const [users, setUsers] = useState<User[]>([])
   const [userId, setUserId] = useState<string | null>(null)
+  const [dbRoles, setDbRoles] = useState<any[]>([])
 
   useEffect(() => {
     async function initUsers() {
@@ -28,21 +30,49 @@ export function UserManagement() {
       if (user) {
         setUserId(user.id)
         
-        // Fetch merchant profile for initialization details
-        const { data: merchant } = await supabase
-          .from('merchants')
+        // Fetch custom roles for this merchant
+        const { data: rolesData } = await supabase
+          .from('roles')
           .select('*')
-          .eq('id', user.id)
-          .single()
+          .eq('merchant_id', user.id)
+        if (rolesData) {
+          setDbRoles(rolesData)
+        }
 
-        const stored = localStorage.getItem(`users_${user.id}`)
-        if (stored) {
-          try {
-            setUsers(JSON.parse(stored))
-          } catch (e) {
-            console.error(e)
-          }
+        // Fetch team members from Supabase table
+        const { data: dbMembers, error: fetchErr } = await supabase
+          .from('team_members')
+          .select('*, roles(id, name)')
+          .eq('merchant_id', user.id)
+          .order('invited_at', { ascending: false })
+
+        if (!fetchErr && dbMembers && dbMembers.length > 0) {
+          const mappedUsers: User[] = dbMembers.map((m: any) => ({
+            id: m.id,
+            name: m.full_name,
+            email: m.email,
+            status: m.status === 'active' ? 'Active' : 'Inactive',
+            accountStatus: m.status === 'suspended' ? 'suspended' : 'active',
+            joined: new Date(m.invited_at).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric'
+            }),
+            emailVerification: m.status === 'active' ? 'Verified' : 'Pending',
+            twoFactorStatus: 'Disabled',
+            phone: m.phone || '',
+            role: m.roles?.name || 'No role',
+            roleId: m.role_id || ''
+          }))
+          setUsers(mappedUsers)
         } else {
+          // If no members are in db yet, we fall back to creating one for the merchant admin
+          const { data: merchant } = await supabase
+            .from('merchants')
+            .select('*')
+            .eq('id', user.id)
+            .single()
+
           const initialUser: User = {
             id: 'usr_1',
             name: merchant?.business_name || 'Admin User',
@@ -57,11 +87,10 @@ export function UserManagement() {
             emailVerification: 'Verified',
             twoFactorStatus: 'Enabled',
             phone: merchant?.contact_phone || '+256783721005',
-            role: 'Owner'
+            role: 'Owner',
+            roleId: ''
           }
-          const defaultList = [initialUser]
-          setUsers(defaultList)
-          localStorage.setItem(`users_${user.id}`, JSON.stringify(defaultList))
+          setUsers([initialUser])
         }
       }
     }
@@ -110,35 +139,66 @@ export function UserManagement() {
     setEditName(user.name)
     setEditEmail(user.email)
     setEditPhone(user.phone || '')
-    setEditRole(user.role || '')
+    setEditRole(user.roleId || '')
     setEditStatus(user.status)
   }
 
-  const handleSaveEdit = (e: React.FormEvent) => {
+  const handleSaveEdit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!editingUser) return
     setIsSaving(true)
-    setTimeout(() => {
-      setUsers(prev => {
-        const next = prev.map(u => u.id === editingUser.id ? {
-          ...u,
-          name: editName,
-          email: editEmail,
-          phone: editPhone,
-          role: editRole,
-          status: editStatus
-        } : u)
-        if (userId) {
-          localStorage.setItem(`users_${userId}`, JSON.stringify(next))
-        }
-        return next
+
+    const { error } = await supabase
+      .from('team_members')
+      .update({
+        full_name: editName,
+        email: editEmail,
+        role_id: editRole || null,
+        status: editStatus === 'Active' ? 'active' : 'suspended'
       })
-      setIsSaving(false)
-      setEditingUser(null)
+      .eq('id', editingUser.id)
+
+    if (error) {
       if (window.showToast) {
-        window.showToast('User details updated successfully', 'success')
+        window.showToast(error.message, 'error')
       }
-    }, 500)
+      setIsSaving(false)
+      return
+    }
+
+    // Refresh database items to sync local UI state
+    const { data: dbMembers } = await supabase
+      .from('team_members')
+      .select('*, roles(id, name)')
+      .eq('merchant_id', userId)
+      .order('invited_at', { ascending: false })
+
+    if (dbMembers) {
+      const mappedUsers: User[] = dbMembers.map((m: any) => ({
+        id: m.id,
+        name: m.full_name,
+        email: m.email,
+        status: m.status === 'active' ? 'Active' : 'Inactive',
+        accountStatus: m.status === 'suspended' ? 'suspended' : 'active',
+        joined: new Date(m.invited_at).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        }),
+        emailVerification: m.status === 'active' ? 'Verified' : 'Pending',
+        twoFactorStatus: 'Disabled',
+        phone: m.phone || '',
+        role: m.roles?.name || 'No role',
+        roleId: m.role_id || ''
+      }))
+      setUsers(mappedUsers)
+    }
+
+    setIsSaving(false)
+    setEditingUser(null)
+    if (window.showToast) {
+      window.showToast('User details updated successfully', 'success')
+    }
   }
   
   // Business context
@@ -148,23 +208,28 @@ export function UserManagement() {
     if (savedName) setBusinessName(savedName)
   }, [])
 
-  const handleDeleteConfirm = () => {
+  const handleDeleteConfirm = async () => {
     setIsDeleting(true)
-    setTimeout(() => {
-      setUsers(prev => {
-        const next = prev.filter(u => !selectedIds.includes(u.id))
-        if (userId) {
-          localStorage.setItem(`users_${userId}`, JSON.stringify(next))
-        }
-        return next
-      })
-      setSelectedIds([])
-      setIsDeleting(false)
-      setShowDeleteConfirm(false)
+    const { error } = await supabase
+      .from('team_members')
+      .delete()
+      .in('id', selectedIds)
+
+    if (error) {
       if (window.showToast) {
-        window.showToast('Successfully deleted selected users', 'success')
+        window.showToast(error.message, 'error')
       }
-    }, 500)
+      setIsDeleting(false)
+      return
+    }
+
+    setUsers(prev => prev.filter(u => !selectedIds.includes(u.id)))
+    setSelectedIds([])
+    setIsDeleting(false)
+    setShowDeleteConfirm(false)
+    if (window.showToast) {
+      window.showToast('Successfully deleted selected users', 'success')
+    }
   }
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -183,52 +248,64 @@ export function UserManagement() {
     }
   }
 
-  const handleCreateUser = (e: React.FormEvent) => {
+  const handleCreateUser = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!fullName || !emailAddress || !accountStatusInput) return
+    setIsSaving(true)
 
-    let photoUrl = ''
-    if (photoFile) {
-      photoUrl = URL.createObjectURL(photoFile)
-    }
+    const { data: newRow, error } = await supabase
+      .from('team_members')
+      .insert({
+        merchant_id: userId,
+        full_name: fullName,
+        email: emailAddress,
+        role_id: roleInput || null,
+        status: accountStatusInput === 'active' ? 'active' : 'invited'
+      })
+      .select('*, roles(id, name)')
+      .single()
 
-    const newUser: User = {
-      id: 'usr_' + Math.random().toString(36).substring(2, 9),
-      name: fullName,
-      email: emailAddress,
-      status: accountStatusInput === 'active' ? 'Active' : 'Inactive',
-      accountStatus: accountStatusInput as 'active' | 'suspended',
-      joined: new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-      }),
-      emailVerification: 'Pending',
-      twoFactorStatus: 'Disabled',
-      phone: mobilePhone,
-      role: roleInput || 'No role selected',
-      photo: photoUrl
-    }
-
-    setUsers(prev => {
-      const next = [newUser, ...prev]
-      if (userId) {
-        localStorage.setItem(`users_${userId}`, JSON.stringify(next))
+    if (error) {
+      if (window.showToast) {
+        window.showToast(error.message, 'error')
       }
-      return next
-    })
-    setSuccessMsg(true)
+      setIsSaving(false)
+      return
+    }
 
-    setTimeout(() => {
-      setSuccessMsg(false)
-      setViewMode('list')
-      setFullName('')
-      setEmailAddress('')
-      setMobilePhone('')
-      setAccountStatusInput('')
-      setRoleInput('')
-      setPhotoFile(null)
-    }, 1200)
+    if (newRow) {
+      const mappedUser: User = {
+        id: newRow.id,
+        name: newRow.full_name,
+        email: newRow.email,
+        status: newRow.status === 'active' ? 'Active' : 'Inactive',
+        accountStatus: newRow.status === 'suspended' ? 'suspended' : 'active',
+        joined: new Date(newRow.invited_at).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        }),
+        emailVerification: newRow.status === 'active' ? 'Verified' : 'Pending',
+        twoFactorStatus: 'Disabled',
+        phone: mobilePhone || '',
+        role: newRow.roles?.name || 'No role',
+        roleId: newRow.role_id || ''
+      }
+      setUsers(prev => [mappedUser, ...prev])
+      setSuccessMsg(true)
+
+      setTimeout(() => {
+        setSuccessMsg(false)
+        setViewMode('list')
+        setFullName('')
+        setEmailAddress('')
+        setMobilePhone('')
+        setAccountStatusInput('')
+        setRoleInput('')
+        setPhotoFile(null)
+      }, 1200)
+    }
+    setIsSaving(false)
   }
 
   const filteredUsers = users.filter(user =>
@@ -353,10 +430,12 @@ export function UserManagement() {
                     className="input bg-white"
                   >
                     <option value="">No role selected</option>
-                    <option value="Finance manager">Finance manager</option>
-                    <option value="Administrator">Administrator</option>
-                    <option value="Support specialist">Support specialist</option>
-                    <option value="Viewer">Viewer</option>
+                    {dbRoles.map(r => (
+                      <option key={r.id} value={r.id}>{r.name}</option>
+                    ))}
+                    {dbRoles.length === 0 && (
+                      <option disabled>No roles created yet. Please create one in Custom Roles.</option>
+                    )}
                   </select>
                   <span className="text-[10px] text-neutral-400 mt-1 block">
                     Only roles created for this business are shown (switch business in the header to see another business's roles).
@@ -825,13 +904,19 @@ export function UserManagement() {
                 {/* Role */}
                 <div>
                   <label className="block text-xs font-bold text-neutral-600 mb-1.5">Role</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Finance manager"
+                  <select
                     value={editRole}
                     onChange={(e) => setEditRole(e.target.value)}
-                    className="input"
-                  />
+                    className="input bg-white"
+                  >
+                    <option value="">No role selected</option>
+                    {dbRoles.map(r => (
+                      <option key={r.id} value={r.id}>{r.name}</option>
+                    ))}
+                    {dbRoles.length === 0 && (
+                      <option disabled>No roles created yet. Please create one in Custom Roles.</option>
+                    )}
+                  </select>
                 </div>
 
                 {/* Status */}

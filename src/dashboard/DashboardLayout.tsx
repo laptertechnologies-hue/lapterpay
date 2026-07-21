@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react'
 import { supabase } from '../lib/supabase'
+import { syncSubscriptions } from '../lib/subscriptions'
 import { ErrorBoundary } from '../components/ErrorBoundary'
 import { ToastContainer } from '../components/Toast'
 
@@ -209,6 +210,16 @@ export function DashboardLayout() {
           localStorage.setItem('kyc_status', profile.kyc_status)
           setKycStatus(profile.kyc_status)
         }
+      }
+
+      // Fetch and sync service subscriptions
+      const { data: dbSubs } = await supabase
+        .from('service_subscriptions')
+        .select('service_key, status')
+        .eq('merchant_id', session.user.id)
+      
+      if (dbSubs) {
+        syncSubscriptions(dbSubs)
       }
     }
     checkAuth();

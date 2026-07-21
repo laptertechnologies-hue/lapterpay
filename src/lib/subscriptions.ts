@@ -1,3 +1,5 @@
+import { supabase } from './supabase';
+
 export interface ServiceSubscription {
   id: string;
   name: string;
@@ -44,4 +46,31 @@ export function setSubscribed(serviceKey: string, subscribed: boolean) {
   const subs = getSubscriptions();
   subs[serviceKey] = subscribed;
   localStorage.setItem('lapterpay_subscriptions', JSON.stringify(subs));
+}
+
+export function syncSubscriptions(dbSubs: { service_key: string, status: string }[]) {
+  if (typeof window === 'undefined') return;
+  const subsMap = { ...DEFAULT_SUBSCRIPTIONS };
+  dbSubs.forEach(s => {
+    subsMap[s.service_key] = s.status === 'active';
+  });
+  localStorage.setItem('lapterpay_subscriptions', JSON.stringify(subsMap));
+}
+
+export async function updateSubscriptionInDb(userId: string, serviceKey: string, active: boolean) {
+  const statusVal = active ? 'active' : 'cancelled';
+  const { error } = await supabase
+    .from('service_subscriptions')
+    .upsert({
+      merchant_id: userId,
+      service_key: serviceKey,
+      status: statusVal
+    }, {
+      onConflict: 'merchant_id,service_key'
+    });
+  
+  if (!error) {
+    setSubscribed(serviceKey, active);
+  }
+  return error;
 }

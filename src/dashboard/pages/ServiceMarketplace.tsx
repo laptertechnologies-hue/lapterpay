@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Search, ChevronLeft, ChevronRight } from 'lucide-react'
-import { getSubscriptions, setSubscribed } from '../../lib/subscriptions'
+import { getSubscriptions, updateSubscriptionInDb } from '../../lib/subscriptions'
+import { supabase } from '../../lib/supabase'
 
 interface ServiceItem {
   id: string
@@ -46,32 +47,60 @@ export function ServiceMarketplace() {
     )
   }, [])
 
-  const handleSubscribe = (id: string) => {
+  const handleSubscribe = async (id: string) => {
     const service = services.find(s => s.id === id)
     if (!service) return
     setLoadingSub(prev => ({ ...prev, [id]: true }))
-    setTimeout(() => {
-      setSubscribed(service.key, true)
-      setServices(prev => prev.map(s => s.id === id ? { ...s, subscribed: true } : s))
+    
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) {
+      if (window.showToast) {
+        window.showToast('Please sign in to subscribe', 'error')
+      }
       setLoadingSub(prev => ({ ...prev, [id]: false }))
+      return
+    }
+
+    const error = await updateSubscriptionInDb(user.id, service.key, true)
+    if (error) {
+      if (window.showToast) {
+        window.showToast(error.message, 'error')
+      }
+    } else {
+      setServices(prev => prev.map(s => s.id === id ? { ...s, subscribed: true } : s))
       if (window.showToast) {
         window.showToast(`Successfully subscribed to ${service.name}`, 'success')
       }
-    }, 500)
+    }
+    setLoadingSub(prev => ({ ...prev, [id]: false }))
   }
 
-  const handleUnsubscribe = (id: string) => {
+  const handleUnsubscribe = async (id: string) => {
     const service = services.find(s => s.id === id)
     if (!service) return
     setLoadingSub(prev => ({ ...prev, [id]: true }))
-    setTimeout(() => {
-      setSubscribed(service.key, false)
-      setServices(prev => prev.map(s => s.id === id ? { ...s, subscribed: false } : s))
+
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) {
+      if (window.showToast) {
+        window.showToast('Please sign in to unsubscribe', 'error')
+      }
       setLoadingSub(prev => ({ ...prev, [id]: false }))
+      return
+    }
+
+    const error = await updateSubscriptionInDb(user.id, service.key, false)
+    if (error) {
+      if (window.showToast) {
+        window.showToast(error.message, 'error')
+      }
+    } else {
+      setServices(prev => prev.map(s => s.id === id ? { ...s, subscribed: false } : s))
       if (window.showToast) {
         window.showToast(`Successfully unsubscribed from ${service.name}`, 'success')
       }
-    }, 500)
+    }
+    setLoadingSub(prev => ({ ...prev, [id]: false }))
   }
 
   // Filter Logic

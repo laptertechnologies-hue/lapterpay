@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Trash2 } from 'lucide-react'
+import { supabase } from '../../lib/supabase'
 
 export function ManageSubAccounts() {
   const [activeTab, setActiveTab] = useState<'my' | 'pending' | 'incoming' | 'send'>('my')
@@ -18,19 +19,73 @@ export function ManageSubAccounts() {
   const [logoFile, setLogoFile] = useState<File | null>(null)
   const [businessCreated, setBusinessCreated] = useState(false)
 
-  // Mock list states
-  const [subAccounts, setSubAccounts] = useState([
-    { id: 'sub_1', name: 'Lapter Wifi - Wandegeya Branch', email: 'wandegeya@lapterwifi.com', phone: '+256771112233', status: 'Active', balance: 'UGX 450,000' },
-    { id: 'sub_2', name: 'Lapter Cafe - Ntinda', email: 'ntinda@laptercafe.com', phone: '+256702223344', status: 'Active', balance: 'UGX 1,200,000' }
-  ])
+  // DB integration states
+  const [userId, setUserId] = useState<string | null>(null)
+  const [userEmail, setUserEmail] = useState<string | null>(null)
+  const [subAccounts, setSubAccounts] = useState<any[]>([])
+  const [pendingRequests, setPendingRequests] = useState<any[]>([])
+  const [incomingRequests, setIncomingRequests] = useState<any[]>([])
 
-  const [pendingRequests, setPendingRequests] = useState([
-    { id: 'req_1', name: 'Kampala Logistics Ltd', email: 'info@kpalalogistics.com', date: '2026-06-20', status: 'Pending' }
-  ])
+  const fetchSubAccounts = async (uid: string, email: string) => {
+    // 1. My sub-accounts (where I am owner)
+    const { data: mySubs, error: myErr } = await supabase
+      .from('sub_accounts')
+      .select('*, merchants:linked_merchant_id(id, business_name, email, contact_phone)')
+      .eq('owner_merchant_id', uid)
 
-  const [incomingRequests, setIncomingRequests] = useState([
-    { id: 'req_2', name: 'Jinja Retailers', email: 'payouts@jinjaretail.com', date: '2026-06-19', status: 'Pending' }
-  ])
+    if (!myErr && mySubs) {
+      // Accepted subaccounts
+      const active = mySubs.filter(s => s.status === 'accepted').map(s => ({
+        id: s.id,
+        name: s.label || s.merchants?.business_name || s.invited_email,
+        email: s.merchants?.email || s.invited_email,
+        phone: s.merchants?.contact_phone || 'None',
+        status: 'Active',
+        balance: 'UGX 0'
+      }))
+      setSubAccounts(active)
+
+      // Pending invitations sent
+      const pending = mySubs.filter(s => s.status === 'pending').map(s => ({
+        id: s.id,
+        name: s.label || s.invited_email,
+        email: s.invited_email,
+        date: new Date(s.created_at).toISOString().split('T')[0],
+        status: 'Pending'
+      }))
+      setPendingRequests(pending)
+    }
+
+    // 2. Incoming invitations (where I am invited)
+    const { data: incomingSubs, error: incErr } = await supabase
+      .from('sub_accounts')
+      .select('*, owner:owner_merchant_id(id, business_name, email, contact_phone)')
+      .eq('invited_email', email)
+      .eq('status', 'pending')
+
+    if (!incErr && incomingSubs) {
+      const incoming = incomingSubs.map(s => ({
+        id: s.id,
+        name: s.owner?.business_name || 'Lapter Merchant',
+        email: s.owner?.email || 'payouts@lapterpay.com',
+        date: new Date(s.created_at).toISOString().split('T')[0],
+        status: 'Pending'
+      }))
+      setIncomingRequests(incoming)
+    }
+  }
+
+  useEffect(() => {
+    async function loadData() {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        setUserId(user.id)
+        setUserEmail(user.email || null)
+        fetchSubAccounts(user.id, user.email || '')
+      }
+    }
+    loadData()
+  }, [])
 
   // Checkbox selection & delete states
   const [selectedIds, setSelectedIds] = useState<string[]>([])
@@ -43,26 +98,39 @@ export function ManageSubAccounts() {
     setSelectedIds([])
   }, [activeTab, searchQuery])
 
-  const handleSendRequest = (e: React.FormEvent) => {
+  const handleSendRequest = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!searchBusiness) return
+    if (!searchBusiness || !userId) return
+    setIsDeleting(true)
 
-    const newReq = {
-      id: 'req_' + Math.random().toString(36).substring(2, 9),
-      name: searchBusiness,
-      email: 'business@lapter.com',
-      date: new Date().toISOString().split('T')[0],
-      status: 'Pending'
+    const { error } = await supabase
+      .from('sub_accounts')
+      .insert({
+        owner_merchant_id: userId,
+        invited_email: searchBusiness,
+        label: searchBusiness,
+        status: 'pending'
+      })
+
+    if (error) {
+      if (window.showToast) {
+        window.showToast(error.message, 'error')
+      }
+      setIsDeleting(false)
+      return
     }
 
-    setPendingRequests(prev => [...prev, newReq])
     setRequestSent(true)
     setTimeout(() => {
       setRequestSent(false)
       setSearchBusiness('')
       setNotes('')
-      setActiveTab('pending') // Switch to pending requests tab
+      if (userEmail) {
+        fetchSubAccounts(userId, userEmail)
+      }
+      setActiveTab('pending')
     }, 1500)
+    setIsDeleting(false)
   }
 
   const handleManage = (subName: string) => {
@@ -74,20 +142,28 @@ export function ManageSubAccounts() {
     }
   }
 
-  const handleCreateSubaccount = (e: React.FormEvent) => {
+  const handleCreateSubaccount = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!subAccountName || !email) return
+    if (!subAccountName || !email || !userId) return
+    setIsDeleting(true)
 
-    const newSub = {
-      id: 'sub_' + Math.random().toString(36).substring(2, 9),
-      name: subAccountName,
-      email: email,
-      phone: phone || '+256700000000',
-      status: 'Active',
-      balance: 'UGX 0'
+    const { error } = await supabase
+      .from('sub_accounts')
+      .insert({
+        owner_merchant_id: userId,
+        invited_email: email,
+        label: subAccountName,
+        status: 'pending'
+      })
+
+    if (error) {
+      if (window.showToast) {
+        window.showToast(error.message, 'error')
+      }
+      setIsDeleting(false)
+      return
     }
 
-    setSubAccounts(prev => [...prev, newSub])
     setBusinessCreated(true)
     setTimeout(() => {
       setBusinessCreated(false)
@@ -97,27 +173,84 @@ export function ManageSubAccounts() {
       setPhone('')
       setAddress('')
       setLogoFile(null)
-      setActiveTab('my') // Switch to subaccounts tab
+      if (userEmail) {
+        fetchSubAccounts(userId, userEmail)
+      }
+      setActiveTab('pending')
     }, 1500)
+    setIsDeleting(false)
   }
 
-  const handleDeleteConfirm = () => {
+  const handleDeleteConfirm = async () => {
     setIsDeleting(true)
-    setTimeout(() => {
-      if (activeTab === 'my') {
-        setSubAccounts(prev => prev.filter(x => !selectedIds.includes(x.id)))
-      } else if (activeTab === 'pending') {
-        setPendingRequests(prev => prev.filter(x => !selectedIds.includes(x.id)))
-      } else if (activeTab === 'incoming') {
-        setIncomingRequests(prev => prev.filter(x => !selectedIds.includes(x.id)))
-      }
-      setSelectedIds([])
-      setIsDeleting(false)
-      setShowDeleteConfirm(false)
+    const { error } = await supabase
+      .from('sub_accounts')
+      .delete()
+      .in('id', selectedIds)
+
+    if (error) {
       if (window.showToast) {
-        window.showToast('Successfully deleted selected items', 'success')
+        window.showToast(error.message, 'error')
       }
-    }, 500)
+      setIsDeleting(false)
+      return
+    }
+
+    if (activeTab === 'my') {
+      setSubAccounts(prev => prev.filter(x => !selectedIds.includes(x.id)))
+    } else if (activeTab === 'pending') {
+      setPendingRequests(prev => prev.filter(x => !selectedIds.includes(x.id)))
+    } else if (activeTab === 'incoming') {
+      setIncomingRequests(prev => prev.filter(x => !selectedIds.includes(x.id)))
+    }
+    setSelectedIds([])
+    setIsDeleting(false)
+    setShowDeleteConfirm(false)
+    if (window.showToast) {
+      window.showToast('Successfully deleted selected items', 'success')
+    }
+  }
+
+  const handleAcceptRequest = async (id: string, name: string) => {
+    const { error } = await supabase
+      .from('sub_accounts')
+      .update({ status: 'accepted', responded_at: new Date() })
+      .eq('id', id)
+
+    if (error) {
+      if (window.showToast) {
+        window.showToast(error.message, 'error')
+      }
+      return
+    }
+
+    if (window.showToast) {
+      window.showToast(`Request from ${name} accepted`, 'success')
+    }
+    if (userId && userEmail) {
+      fetchSubAccounts(userId, userEmail)
+    }
+  }
+
+  const handleDeclineRequest = async (id: string, name: string) => {
+    const { error } = await supabase
+      .from('sub_accounts')
+      .update({ status: 'declined', responded_at: new Date() })
+      .eq('id', id)
+
+    if (error) {
+      if (window.showToast) {
+        window.showToast(error.message, 'error')
+      }
+      return
+    }
+
+    if (window.showToast) {
+      window.showToast(`Request from ${name} declined`, 'success')
+    }
+    if (userId && userEmail) {
+      fetchSubAccounts(userId, userEmail)
+    }
   }
 
   const handleSelectRow = (id: string, checked: boolean) => {
@@ -417,21 +550,16 @@ export function ManageSubAccounts() {
                         </span>
                       </td>
                       <td className="px-5 py-4 text-right space-x-3">
-                        <button onClick={() => {
-                          setSubAccounts(prev => [...prev, { id: req.id, name: req.name, email: req.email, phone: '+256700000000', status: 'Active', balance: 'UGX 0' }])
-                          setIncomingRequests(prev => prev.filter(r => r.id !== req.id))
-                          if (window.showToast) {
-                            window.showToast(`Request from ${req.name} accepted`, 'success')
-                          }
-                        }} className="text-emerald-650 hover:text-emerald-700 font-semibold hover:underline">
+                        <button 
+                          onClick={() => handleAcceptRequest(req.id, req.name)} 
+                          className="text-emerald-650 hover:text-emerald-700 font-semibold hover:underline"
+                        >
                           Accept
                         </button>
-                        <button onClick={() => {
-                          setIncomingRequests(prev => prev.filter(r => r.id !== req.id))
-                          if (window.showToast) {
-                            window.showToast(`Request from ${req.name} declined`, 'success')
-                          }
-                        }} className="text-red-600 hover:text-red-700 font-semibold hover:underline">
+                        <button 
+                          onClick={() => handleDeclineRequest(req.id, req.name)} 
+                          className="text-red-600 hover:text-red-700 font-semibold hover:underline"
+                        >
                           Decline
                         </button>
                       </td>
