@@ -20,10 +20,10 @@ export function AdminUsers() {
 
   // Mock system users list
   const [users, setUsers] = useState<AdminUser[]>([
-    { id: 'usr_admin1', name: 'System Super Admin', email: 'admin@tamupay.com', phone: '+256701000100', role: 'Super Admin', businessContext: 'Tamupay HQ', status: 'Active', joined: 'Jan 01, 2026' },
-    { id: 'usr_admin2', name: 'Compliance Officer Pro', email: 'compliance@tamupay.com', phone: '+256701000200', role: 'Auditor', businessContext: 'Tamupay HQ', status: 'Active', joined: 'Feb 15, 2026' },
-    { id: 'usr_m1', name: 'Bangole Alvin', email: 'bangolealvin@gmail.com', phone: '+256763721005', role: 'Merchant Owner', businessContext: 'Tamu wifi', status: 'Active', joined: 'Jun 10, 2026' },
-    { id: 'usr_m2', name: 'Punjab Alvin', email: 'alvinpunjab@gmail.com', phone: '+256712345678', role: 'Merchant Finance', businessContext: 'Tamu wifi', status: 'Active', joined: 'Jun 11, 2026' },
+    { id: 'usr_admin1', name: 'System Super Admin', email: 'admin@lapterpay.com', phone: '+256701000100', role: 'Super Admin', businessContext: 'Lapterpay HQ', status: 'Active', joined: 'Jan 01, 2026' },
+    { id: 'usr_admin2', name: 'Compliance Officer Pro', email: 'compliance@lapterpay.com', phone: '+256701000200', role: 'Auditor', businessContext: 'Lapterpay HQ', status: 'Active', joined: 'Feb 15, 2026' },
+    { id: 'usr_m1', name: 'Bangole Alvin', email: 'bangolealvin@gmail.com', phone: '+256763721005', role: 'Merchant Owner', businessContext: 'Lapter Wifi', status: 'Active', joined: 'Jun 10, 2026' },
+    { id: 'usr_m2', name: 'Punjab Alvin', email: 'alvinpunjab@gmail.com', phone: '+256712345678', role: 'Merchant Finance', businessContext: 'Lapter Wifi', status: 'Active', joined: 'Jun 11, 2026' },
     { id: 'usr_m3', name: 'Cafe Manager Stan', email: 'stan@ntindacafe.com', phone: '+256773902938', role: 'Merchant Owner', businessContext: 'Ntinda Cafe', status: 'Suspended', joined: 'May 04, 2026' }
   ])
 
@@ -72,7 +72,7 @@ export function AdminUsers() {
       email: newEmail,
       phone: newPhone,
       role: newRole,
-      businessContext: 'Tamupay HQ',
+      businessContext: 'Lapterpay HQ',
       status: 'Active',
       joined: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
     }
@@ -183,7 +183,7 @@ export function AdminUsers() {
               <input 
                 type="email" 
                 required 
-                placeholder="e.g. john@tamupay.com"
+                placeholder="e.g. john@lapterpay.com"
                 value={newEmail}
                 onChange={e => setNewEmail(e.target.value)}
                 className="input"

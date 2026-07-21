@@ -5,10 +5,10 @@ import { Reveal } from '../../components/Reveal'
 const SLIDES = [
   { id: 'mobile-money', src: '/slider1.png', alt: 'Merchant accepting a mobile money payment at a market stall' },
   { id: 'cards', src: '/slider2.png', alt: 'Customer tapping a card to pay at checkout' },
-  { id: 'payment-links', src: '/payment_phone_mockups.png', alt: 'TamuPay send-money and payment link phone screens' },
+  { id: 'payment-links', src: '/payment_phone_mockups.png', alt: 'LapterPay send-money and payment link phone screens' },
   { id: 'bank-payouts', src: '/hero-dashboard.png', alt: 'Payout sent and webhook delivered confirmations' },
-  { id: 'airtime', src: '/tamupay_airtime_data.png', alt: 'MTN and Airtel airtime top-up confirmations' },
-  { id: 'security', src: '/tamupay_dev_integration.png', alt: 'API payment confirmation and webhook success' },
+  { id: 'airtime', src: '/lapterpay_airtime_data.png', alt: 'MTN and Airtel airtime top-up confirmations' },
+  { id: 'security', src: '/lapterpay_dev_integration.png', alt: 'API payment confirmation and webhook success' },
 ]
 
 function ServicesHeroSlider() {
@@ -133,7 +133,7 @@ export function FeaturesPage() {
             <div className="lg:col-span-6 flex justify-center lg:justify-end">
               <div className="bg-neutral-950 text-white rounded-2xl p-6 w-full max-w-sm shadow-2xl space-y-4">
                 <div className="flex items-center justify-between border-b border-neutral-900 pb-3">
-                  <span className="text-neutral-400 text-xs font-bold tracking-tight">TamuPay Checkout</span>
+                  <span className="text-neutral-400 text-xs font-bold tracking-tight">LapterPay Checkout</span>
                   <span className="bg-red-500/10 text-red-400 text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider">Sandbox</span>
                 </div>
                 <p className="text-neutral-400 text-[10px] uppercase tracking-wider font-bold">Select Network</p>
@@ -256,11 +256,11 @@ export function FeaturesPage() {
               <div className="bg-white border border-neutral-200 rounded-3xl shadow-xl p-6 w-full max-w-sm space-y-4 text-neutral-850">
                 <p className="text-neutral-800 font-bold text-sm tracking-tight border-b border-neutral-100 pb-2">Billing Link Page</p>
                 <div className="bg-neutral-50 border border-neutral-150 rounded-xl px-4 py-3 text-xs text-red-600 font-mono break-all font-bold">
-                  tamupay.ug/pay/inv-2026-0091
+                  lapterpay.ug/pay/inv-2026-0091
                 </div>
                 <div className="bg-neutral-50 rounded-xl p-4 space-y-1 border border-neutral-100">
                   <p className="text-neutral-900 font-black text-xl">UGX 750,000</p>
-                  <p className="text-neutral-500 text-xs font-semibold">Tamu Wifi - Invoice 91</p>
+                  <p className="text-neutral-500 text-xs font-semibold">Lapter Wifi - Invoice 91</p>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   {['MTN MoMo', 'Airtel Money', 'Cards'].map(m => (
@@ -334,7 +334,7 @@ export function FeaturesPage() {
             <div className="lg:col-span-6 space-y-5 text-center lg:text-left">
               <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight leading-tight">Top up MTN &amp; Airtel</h2>
               <p className="text-sm sm:text-base text-neutral-500 leading-relaxed max-w-lg mx-auto lg:mx-0">
-                Execute mobile top-ups for employees, field staff, or clients. Deducted instantly from your main TamuPay float balance with immediate verification.
+                Execute mobile top-ups for employees, field staff, or clients. Deducted instantly from your main LapterPay float balance with immediate verification.
               </p>
               <ul className="space-y-3 text-left max-w-md mx-auto lg:mx-0 text-sm text-neutral-600 font-medium">
                 <li className="flex items-start gap-2.5">
@@ -428,7 +428,7 @@ export function FeaturesPage() {
         <Reveal className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight">Ready to integrate your payments?</h2>
           <p className="text-sm sm:text-base text-neutral-500 max-w-xl mx-auto">
-            Create your TamuPay profile, complete simple merchant checks, and collect local customer payments.
+            Create your LapterPay profile, complete simple merchant checks, and collect local customer payments.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <Link to="/register" className="btn-shimmer w-full sm:w-auto bg-red-600 text-white px-8 py-3.5 rounded-full text-sm font-bold hover:bg-red-700 transition-all text-center shadow-md border-0 hover:scale-[1.02]">

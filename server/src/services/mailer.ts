@@ -1,5 +1,5 @@
 /**
- * TamuPay Mailer
+ * LapterPay Mailer
  *
  * Thin wrapper around nodemailer's SMTP transport. Every send attempt is
  * recorded in public.email_logs regardless of outcome, so delivery history
@@ -11,7 +11,7 @@
  *   SMTP_SECURE=false          # true for port 465
  *   SMTP_USER=apikey-or-username
  *   SMTP_PASS=your-smtp-password
- *   SMTP_FROM="TamuPay <no-reply@tamupay.ug>"
+ *   SMTP_FROM="LapterPay <no-reply@lapterpay.ug>"
  *
  * Until those are set, sendMail() logs the email to email_logs with
  * status='failed' and an explanatory error_message instead of throwing —
@@ -67,7 +67,7 @@ export async function sendMail({
   template: string;
   merchantId?: string | null;
 }): Promise<{ sent: boolean; error?: string }> {
-  const from = process.env.SMTP_FROM || 'TamuPay <no-reply@tamupay.ug>';
+  const from = process.env.SMTP_FROM || 'LapterPay <no-reply@lapterpay.ug>';
   const t = getTransporter();
 
   if (!t) {

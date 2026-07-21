@@ -12,7 +12,7 @@ type DocsShellProps = {
 /**
  * Shared chrome for the documentation area: a persistent, grouped side
  * menu (search-filterable) + top bar, wrapping whichever topic content
- * is passed in as children. This is TamuPay's own docs information
+ * is passed in as children. This is LapterPay's own docs information
  * architecture (grouped sidebar navigation) rather than the flat
  * card-grid-then-full-width-article pattern this was originally built from.
  */
@@ -89,7 +89,7 @@ export function DocsShell({ activeId, children }: DocsShellProps) {
             >
               {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
-            <img src="/tamu.png" alt="Tamu Pay" className="h-8 object-contain shrink-0" />
+            <img src="/lapterpay.png" alt="Lapter Pay" className="h-8 object-contain shrink-0" />
             <span className="hidden sm:inline text-xs font-semibold text-neutral-400 border-l border-neutral-200 pl-3">Documentation</span>
           </div>
 

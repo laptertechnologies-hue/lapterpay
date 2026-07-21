@@ -14,7 +14,7 @@ const DOCS_DATA = docsDataJson as Record<string, DocItem>
 
 // Every entry in docs_data.json ships with its own baked-in breadcrumb
 // (<nav aria-label="Breadcrumb">Documentation &gt; Topic</nav>) from the
-// system this was originally copied from. TamuPay now renders its own
+// system this was originally copied from. LapterPay now renders its own
 // breadcrumb bar above the content, so strip the embedded one to avoid
 // showing two stacked breadcrumbs.
 function stripEmbeddedBreadcrumb(html: string): string {

@@ -83,6 +83,7 @@ const navGroups: NavGroup[] = [
     label: 'SETTINGS',
     items: [
       { path: 'business-information', label: 'Business Information', iconClass: 'fa-solid fa-gears', iconColor: '#6b7280' },
+      { path: 'security', label: 'Security', iconClass: 'fa-solid fa-shield-halved', iconColor: '#dc2626' },
       { path: 'withdrawal-numbers', label: 'Withdrawal Phone Numbers', iconClass: 'fa-solid fa-phone-volume', iconColor: '#10b981' },
       { path: 'support-tickets', label: 'Support Tickets', iconClass: 'fa-solid fa-headset', iconColor: '#ec4899', count: liveCounts['support-tickets'] },
     ]
@@ -103,7 +104,7 @@ export function DashboardLayout() {
   const navigate = useNavigate()
   const location = useLocation()
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [businessName, setBusinessName] = useState('Tamu wifi')
+  const [businessName, setBusinessName] = useState('Lapter Wifi')
   const [accountNumber, setAccountNumber] = useState('A/C: 201775010270')
   const [userDropdownOpen, setUserDropdownOpen] = useState(false)
   const [notifDropdownOpen, setNotifDropdownOpen] = useState(false)
@@ -301,7 +302,7 @@ export function DashboardLayout() {
       <aside className={`fixed top-0 left-0 h-full w-64 bg-white border-r border-neutral-200 z-50 transform transition-transform duration-200 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} flex flex-col`}>
         {/* Brand header */}
         <div className="flex flex-col items-center justify-center pt-6 pb-5 border-b border-neutral-100 px-4 relative">
-          <img src="/tamu.png" alt="Tamu Pay" className="h-10 object-contain mx-auto" />
+          <img src="/lapterpay.png" alt="Lapter Pay" className="h-10 object-contain mx-auto" />
           
           <button
             onClick={() => setSidebarOpen(false)}

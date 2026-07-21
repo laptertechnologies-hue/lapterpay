@@ -121,7 +121,7 @@ export function BusinessDocuments() {
     <div className="space-y-6 max-w-4xl mx-auto">
       {/* Page Header */}
       <div>
-        <h2 className="text-xl font-bold text-neutral-900">Get Started with Tamupay</h2>
+        <h2 className="text-xl font-bold text-neutral-900">Get Started with Lapterpay</h2>
         <p className="text-xs text-neutral-500 mt-1">Upload required documents to verify your business account.</p>
       </div>
 

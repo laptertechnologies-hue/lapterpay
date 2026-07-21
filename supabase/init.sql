@@ -1,4 +1,4 @@
--- Complete Database Setup Schema for Tamupay Payment Gateway
+-- Complete Database Setup Schema for Lapterpay Payment Gateway
 -- Target Database: PostgreSQL (Supabase SQL Editor)
 
 -- Enable pgcrypto extension for generating random UUIDs and bcrypt hashes

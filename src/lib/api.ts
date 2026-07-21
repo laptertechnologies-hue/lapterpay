@@ -163,5 +163,40 @@ export const api = {
 
   async getWebhookLogs() {
     return request<any[]>(`/webhooks/logs`);
+  },
+
+  // Notifications
+  async sendWelcomeEmail() {
+    return request<{ delivered: boolean }>(`/notifications/welcome`, { method: 'POST' });
+  },
+
+  // Two-factor authentication (Google Authenticator / any TOTP app)
+  async twoFactorStatus() {
+    return request<{ enabled: boolean; enabledAt: string | null }>(`/2fa/status`);
+  },
+
+  async twoFactorSetup() {
+    return request<{ qrDataUrl: string; secret: string; otpauthUrl: string }>(`/2fa/setup`, { method: 'POST' });
+  },
+
+  async twoFactorVerify(code: string) {
+    return request<{ backupCodes: string[] }>(`/2fa/verify`, {
+      method: 'POST',
+      body: JSON.stringify({ code }),
+    });
+  },
+
+  async twoFactorChallenge(code: string) {
+    return request<{ verified: boolean; method: 'totp' | 'backup_code' }>(`/2fa/challenge`, {
+      method: 'POST',
+      body: JSON.stringify({ code }),
+    });
+  },
+
+  async twoFactorDisable(code: string) {
+    return request<any>(`/2fa/disable`, {
+      method: 'POST',
+      body: JSON.stringify({ code }),
+    });
   }
 };

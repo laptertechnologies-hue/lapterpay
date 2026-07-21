@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { Menu, X, ChevronDown, ShieldAlert, Users, Scale, Settings, LayoutDashboard } from 'lucide-react'
+import { adminApi, getAdminToken, clearAdminToken } from '../lib/adminApi'
 
 interface AdminNavItem {
   path: string
@@ -14,7 +15,7 @@ export function AdminLayout() {
   const navigate = useNavigate()
   const location = useLocation()
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const adminName = 'System Administrator'
+  const [adminName, setAdminName] = useState('System Administrator')
   const adminRole = 'Super Admin'
   const [userDropdownOpen, setUserDropdownOpen] = useState(false)
   const [notifDropdownOpen, setNotifDropdownOpen] = useState(false)
@@ -32,10 +33,25 @@ export function AdminLayout() {
   })
 
   useEffect(() => {
-    const isAuth = localStorage.getItem('super_admin_authenticated')
-    if (isAuth !== 'true') {
+    // Real, server-verified session check — replaces the old
+    // `localStorage['super_admin_authenticated'] === 'true'` gate, which
+    // anyone could set from devtools with zero credentials. /admin/me only
+    // succeeds if the bearer token matches a live, unexpired row in
+    // super_admin_sessions (server/src/routes/admin.ts).
+    if (!getAdminToken()) {
       navigate('/admin-login')
+      return
     }
+    adminApi.me()
+      .then(res => {
+        if (res.success && res.data) {
+          setAdminName(res.data.username)
+        }
+      })
+      .catch(() => {
+        clearAdminToken()
+        navigate('/admin-login')
+      })
   }, [navigate])
 
   useEffect(() => {
@@ -104,7 +120,7 @@ export function AdminLayout() {
         {/* Brand header */}
         <div className="flex flex-col items-center justify-center pt-6 pb-5 border-b border-slate-800 px-4 relative">
           <div className="flex items-center gap-2 group cursor-pointer" onClick={() => navigate('/')}>
-            <img src="/tamu.png" alt="Tamu Pay" className="h-9 object-contain brightness-0 invert" />
+            <img src="/lapterpay.png" alt="Lapter Pay" className="h-9 object-contain brightness-0 invert" />
             <span className="text-[9px] font-bold uppercase bg-amber-500 text-slate-950 px-2 py-0.5 rounded-full tracking-wider animate-pulse">
               Super Admin
             </span>
@@ -273,7 +289,11 @@ export function AdminLayout() {
                     </button>
                     <div className="border-t border-slate-100 mt-1 pt-1">
                       <button
-                        onClick={() => { navigate('/') }}
+                        onClick={() => {
+                          adminApi.logout().catch(() => {})
+                          clearAdminToken()
+                          navigate('/')
+                        }}
                         className="w-full flex items-center gap-2.5 px-4 py-2 text-rose-600 hover:bg-rose-50 transition-colors font-bold"
                       >
                         <i className="fa-solid fa-arrow-right-from-bracket text-rose-500 text-[11px] w-4 text-center"></i>

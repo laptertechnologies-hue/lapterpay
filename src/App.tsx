@@ -33,6 +33,7 @@ import { BusinessInformation } from './dashboard/pages/BusinessInformation'
 import { WithdrawalPhoneNumbers } from './dashboard/pages/WithdrawalPhoneNumbers'
 import { SupportTickets } from './dashboard/pages/SupportTickets'
 import { ApiKeys } from './dashboard/pages/ApiKeys'
+import { Security } from './dashboard/pages/Security'
 import { IpWhitelist } from './dashboard/pages/IpWhitelist'
 import { Documentation } from './dashboard/pages/Documentation'
 import { DocumentationDetail } from './dashboard/pages/DocumentationDetail'
@@ -111,6 +112,7 @@ export default function App() {
             <Route path="users" element={<UserManagement />} />
             <Route path="roles" element={<Roles />} />
             <Route path="business-information" element={<BusinessInformation />} />
+            <Route path="security" element={<Security />} />
             <Route path="withdrawal-numbers" element={<WithdrawalPhoneNumbers />} />
             <Route path="support-tickets" element={<SupportTickets />} />
             <Route path="api-keys" element={<ApiKeys />} />

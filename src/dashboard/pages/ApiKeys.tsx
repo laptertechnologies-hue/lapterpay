@@ -192,12 +192,12 @@ export function ApiKeys() {
                 <input
                   type="text"
                   readOnly
-                  value="https://api.tamupay.ug/v1"
+                  value="https://api.lapterpay.ug/v1"
                   className="input font-mono text-[11px] bg-neutral-50"
                 />
                 <button
                   type="button"
-                  onClick={() => handleCopy('https://api.tamupay.ug/v1', 'Base URL', 'base_url')}
+                  onClick={() => handleCopy('https://api.lapterpay.ug/v1', 'Base URL', 'base_url')}
                   className="p-1.5 bg-transparent border-0 text-neutral-450 hover:text-neutral-600 hover:scale-110 transition-all shrink-0 flex items-center justify-center focus:outline-none cursor-pointer"
                   title="Copy Base URL"
                 >

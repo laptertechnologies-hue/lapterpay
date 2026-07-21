@@ -13,7 +13,7 @@ export function BusinessInformation() {
   const [email, setEmail] = useState('alvinpunjab@gmail.com')
   const [phoneNumber, setPhoneNumber] = useState('+256783721005')
   const [address, setAddress] = useState('Kampala\nBanda')
-  const [businessName, setBusinessName] = useState('Tamu wifi')
+  const [businessName, setBusinessName] = useState('Lapter Wifi')
   const [accountNumber, setAccountNumber] = useState('261775810270')
   const [merchantCode, setMerchantCode] = useState('678846')
   const [kycStatus, setKycStatus] = useState('pending')
@@ -106,11 +106,11 @@ export function BusinessInformation() {
             <X size={20} />
           </button>
 
-          {/* Real Tamupay Logo */}
-          <img src="/tamu.png" alt="Tamupay Logo" className="h-10 object-contain drop-shadow-xs" />
+          {/* Real Lapterpay Logo */}
+          <img src="/lapterpay.png" alt="Lapterpay Logo" className="h-10 object-contain drop-shadow-xs" />
 
           <div className="space-y-2">
-            <h2 className="text-lg font-black text-neutral-905">Download Tamupay</h2>
+            <h2 className="text-lg font-black text-neutral-905">Download Lapterpay</h2>
             <p className="text-xs text-neutral-500 max-w-sm">
               Scan to download on your phone, or tap the store button for your device.
             </p>
@@ -187,7 +187,7 @@ export function BusinessInformation() {
           </div>
 
           <div className="text-[10px] text-neutral-400 pt-4">
-            © 2026 Tamupay. All rights reserved.
+            © 2026 Lapterpay. All rights reserved.
           </div>
         </div>
       </div>
@@ -215,7 +215,7 @@ export function BusinessInformation() {
               <i className="fa-solid fa-mobile-screen-button text-sm"></i>
             </div>
             <div>
-              <h4 className="text-xs font-bold">Log in on the Tamupay app</h4>
+              <h4 className="text-xs font-bold">Log in on the Lapterpay app</h4>
               <p className="text-[11px] text-blue-200 mt-0.5 max-w-md leading-relaxed">
                 Download the app for iPhone or Android and sign in with the same email and password you use on the web.
               </p>
@@ -264,7 +264,7 @@ export function BusinessInformation() {
       <div className="card bg-white p-6 border border-neutral-200/80 rounded-2xl shadow-sm">
         <form onSubmit={handleUpdate} className="space-y-6">
           
-          {/* Logo uploader - Modern Tamu layout */}
+          {/* Logo uploader - Modern Lapter layout */}
           <div className="relative border border-neutral-200/85 rounded-2xl p-6 bg-slate-50/50 flex flex-col sm:flex-row items-center gap-6 shadow-2xs">
             <div className="relative w-20 h-20 rounded-full border-4 border-white bg-white flex items-center justify-center shrink-0 shadow-md overflow-hidden group">
               {logoPreview ? (
@@ -459,9 +459,9 @@ export function BusinessInformation() {
           {/* Toggle 1 */}
           <div className="p-4 border border-blue-100 bg-blue-50/30 rounded-2xl flex items-center justify-between gap-4 text-xs">
             <div className="space-y-1">
-              <h4 className="font-bold text-neutral-800">Tamupay App Login</h4>
+              <h4 className="font-bold text-neutral-800">Lapterpay App Login</h4>
               <p className="text-[11px] text-neutral-500 leading-relaxed">
-                Allow your team to log in to the Tamupay mobile app using their existing user accounts.
+                Allow your team to log in to the Lapterpay mobile app using their existing user accounts.
               </p>
               <p className="text-[10px] text-neutral-400">
                 When enabled, users under this business can authenticate with the app. You can revoke access at any time.
@@ -485,7 +485,7 @@ export function BusinessInformation() {
             <div className="space-y-1">
               <h4 className="font-bold text-neutral-805 flex items-center gap-1">
                 <i className="fa-brands fa-whatsapp text-emerald-600"></i>
-                Tamupay on WhatsApp
+                Lapterpay on WhatsApp
               </h4>
               <p className="text-[11px] text-neutral-500 leading-relaxed">
                 Allow your customers to pay you via WhatsApp. Make sure your <span className="text-blue-600 underline cursor-pointer">profile phone number</span> is set. <span className="text-blue-600 underline cursor-pointer">Start a conversation here.</span>

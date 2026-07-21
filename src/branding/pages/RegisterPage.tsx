@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
+import { api } from '../../lib/api';
 import { Reveal } from '../../components/Reveal';
 
 export function RegisterPage() {
@@ -142,7 +143,7 @@ export function RegisterPage() {
     if (existingMerchant) {
       await supabase.auth.signOut();
       setOtpLoading(false);
-      setOtpError('This email already has a TamuPay account. Please sign in instead.');
+      setOtpError('This email already has a LapterPay account. Please sign in instead.');
       setOtpSent(false);
       return;
     }
@@ -230,6 +231,11 @@ export function RegisterPage() {
     localStorage.setItem('merchant_account_type', merchantRow.business_type || 'individual');
     localStorage.setItem('kyc_status', 'pending_agreement'); // Start KYC onboarding
 
+    // Fire-and-forget: don't block navigation on email delivery. If SMTP
+    // isn't configured yet, the backend just logs the attempt instead of
+    // failing the request.
+    api.sendWelcomeEmail().catch(() => {});
+
     navigate('/dashboard/business-documents'); // Direct them to document setup wizard!
   };
 
@@ -248,7 +254,7 @@ export function RegisterPage() {
           {/* Brand logo */}
           <div className="flex justify-center mb-6">
             <Link to="/">
-              <img src="/tamu.png" alt="Tamu Pay" className="h-10 object-contain" />
+              <img src="/lapterpay.png" alt="Lapter Pay" className="h-10 object-contain" />
             </Link>
           </div>
 

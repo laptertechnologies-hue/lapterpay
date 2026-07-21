@@ -22,9 +22,9 @@ const DEFAULT_SUBSCRIPTIONS: Record<string, boolean> = {
 
 export function getSubscriptions(): Record<string, boolean> {
   if (typeof window === 'undefined') return DEFAULT_SUBSCRIPTIONS;
-  const stored = localStorage.getItem('tamupay_subscriptions');
+  const stored = localStorage.getItem('lapterpay_subscriptions');
   if (!stored) {
-    localStorage.setItem('tamupay_subscriptions', JSON.stringify(DEFAULT_SUBSCRIPTIONS));
+    localStorage.setItem('lapterpay_subscriptions', JSON.stringify(DEFAULT_SUBSCRIPTIONS));
     return DEFAULT_SUBSCRIPTIONS;
   }
   try {
@@ -43,5 +43,5 @@ export function setSubscribed(serviceKey: string, subscribed: boolean) {
   if (typeof window === 'undefined') return;
   const subs = getSubscriptions();
   subs[serviceKey] = subscribed;
-  localStorage.setItem('tamupay_subscriptions', JSON.stringify(subs));
+  localStorage.setItem('lapterpay_subscriptions', JSON.stringify(subs));
 }

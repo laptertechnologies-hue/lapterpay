@@ -104,7 +104,7 @@ const stackingCards = [
     ],
     visual: (
       <img 
-        src="/tamupay_airtime_data.png" 
+        src="/lapterpay_airtime_data.png" 
         alt="Airtime and Data dashboard mockup" 
         className="w-full h-auto object-cover rounded-3xl shadow-2xl"
       />
@@ -124,7 +124,7 @@ const stackingCards = [
     ],
     visual: (
       <img 
-        src="/tamupay_dev_integration.png" 
+        src="/lapterpay_dev_integration.png" 
         alt="Developer REST API integration illustration" 
         className="w-full h-auto object-cover rounded-3xl shadow-2xl"
       />
@@ -144,7 +144,7 @@ const stackingCards = [
     ],
     visual: (
       <img 
-        src="/tamupay_east_africa_coverage.png" 
+        src="/lapterpay_east_africa_coverage.png" 
         alt="East Africa coverage payment map" 
         className="w-full h-auto object-cover rounded-3xl shadow-2xl"
       />
@@ -243,7 +243,7 @@ export function HomePage() {
             <Reveal variant="scale" delay={150}>
               <img
                 src="/hero-dashboard.png"
-                alt="TamuPay payment dashboard"
+                alt="LapterPay payment dashboard"
                 className="w-full h-auto max-h-[380px] lg:max-h-[460px] object-contain rounded-3xl animate-float"
                 width={650}
                 height={430}
@@ -267,7 +267,7 @@ export function HomePage() {
               What do you want to do today?
             </h2>
             <p className="text-neutral-500 text-sm sm:text-base leading-relaxed">
-              Pick a goal — we will point you to the right part of TamuPay.
+              Pick a goal — we will point you to the right part of LapterPay.
             </p>
           </Reveal>
 

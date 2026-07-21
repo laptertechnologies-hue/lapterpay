@@ -8,12 +8,12 @@ const sections = [
     body: (
       <>
         <p>
-          These Terms of Service ("Terms") govern access to and use of the TamuPay payment gateway, dashboard, APIs,
-          and related services (collectively, the "Service"), operated by TamuPay ("TamuPay", "we", "us", or "our"),
+          These Terms of Service ("Terms") govern access to and use of the LapterPay payment gateway, dashboard, APIs,
+          and related services (collectively, the "Service"), operated by LapterPay ("LapterPay", "we", "us", or "our"),
           a payment services provider based in Kampala, Uganda.
         </p>
         <p>
-          By creating a TamuPay account, integrating our API, or otherwise using the Service, you ("Merchant", "you")
+          By creating a LapterPay account, integrating our API, or otherwise using the Service, you ("Merchant", "you")
           agree to be bound by these Terms and by our <Link to="/privacy" className="text-red-600 font-semibold hover:underline">Privacy Policy</Link>.
           If you are agreeing on behalf of a business, you confirm that you have authority to bind that business.
         </p>
@@ -26,7 +26,7 @@ const sections = [
     body: (
       <>
         <p>
-          You must be at least 18 years old and capable of forming a binding contract to register for TamuPay. Business
+          You must be at least 18 years old and capable of forming a binding contract to register for LapterPay. Business
           accounts must be lawfully registered in Uganda (or, for later-supported markets, that market's jurisdiction).
         </p>
         <p>
@@ -44,7 +44,7 @@ const sections = [
     title: '3. Description of the Service',
     body: (
       <p>
-        TamuPay provides tools to collect payments (mobile money, cards, bank transfers), disburse payouts, buy
+        LapterPay provides tools to collect payments (mobile money, cards, bank transfers), disburse payouts, buy
         airtime and data bundles, generate payment links, and receive webhook notifications, through the dashboard and
         REST API. We act as a technical intermediary connecting you to underlying payment rails (mobile network
         operators, card networks, and partner banks); we do not guarantee the uptime or behavior of those third-party
@@ -98,9 +98,9 @@ const sections = [
     body: (
       <p>
         You are responsible for safeguarding your API keys, dashboard credentials, and any two-factor authentication
-        methods enabled on your account. TamuPay stores API secret keys only as irreversible cryptographic hashes and
+        methods enabled on your account. LapterPay stores API secret keys only as irreversible cryptographic hashes and
         shows you the full secret exactly once at creation — we cannot recover a lost key, only issue a new one. You
-        must notify us immediately at <a href="mailto:support@tamupay.ug" className="text-red-600 font-semibold hover:underline">support@tamupay.ug</a>{' '}
+        must notify us immediately at <a href="mailto:support@lapterpay.ug" className="text-red-600 font-semibold hover:underline">support@lapterpay.ug</a>{' '}
         if you suspect a key or account has been compromised, so we can revoke it.
       </p>
     ),
@@ -112,7 +112,7 @@ const sections = [
       <p>
         Refunds are processed through the dashboard or API and are subject to review before funds move. You remain
         responsible for chargebacks, reversals, or disputes initiated by your customers' banks or mobile money
-        providers, and TamuPay may debit your wallet balance to cover such reversals where the underlying payment
+        providers, and LapterPay may debit your wallet balance to cover such reversals where the underlying payment
         rail reverses a settled transaction.
       </p>
     ),
@@ -122,7 +122,7 @@ const sections = [
     title: '8. Limitation of liability',
     body: (
       <p>
-        To the maximum extent permitted by Ugandan law, TamuPay's aggregate liability for any claim arising from your
+        To the maximum extent permitted by Ugandan law, LapterPay's aggregate liability for any claim arising from your
         use of the Service is limited to the fees you paid us in the three (3) months preceding the event giving rise
         to the claim. We are not liable for indirect, incidental, or consequential losses, including lost profits or
         lost data, except where such exclusion is not permitted by law.
@@ -168,7 +168,7 @@ const sections = [
     body: (
       <p>
         Questions about these Terms can be sent to{' '}
-        <a href="mailto:support@tamupay.ug" className="text-red-600 font-semibold hover:underline">support@tamupay.ug</a>{' '}
+        <a href="mailto:support@lapterpay.ug" className="text-red-600 font-semibold hover:underline">support@lapterpay.ug</a>{' '}
         or +256 763 721005, or via our <Link to="/contact" className="text-red-600 font-semibold hover:underline">Contact page</Link>.
       </p>
     ),
@@ -192,7 +192,7 @@ export function TermsPage() {
       <section className="py-14 sm:py-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <Reveal className="text-xs text-neutral-500 bg-neutral-50 border border-neutral-200 rounded-2xl p-4 leading-relaxed">
-            This document is provided as a plain-language starting point for TamuPay's merchant agreement. It is not a
+            This document is provided as a plain-language starting point for LapterPay's merchant agreement. It is not a
             substitute for advice from a Uganda-licensed lawyer, and should be reviewed by one — together with your
             National Payment Systems Act, 2020 licensing counsel — before being relied on as your binding merchant terms.
           </Reveal>

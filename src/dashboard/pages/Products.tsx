@@ -159,7 +159,7 @@ export function Products() {
   const [copiedProductId, setCopiedProductId] = useState<string | null>(null)
 
   const handleCopyLink = (id: string) => {
-    const link = `https://tamupay.ug/pay/product/${id}`
+    const link = `https://lapterpay.ug/pay/product/${id}`
     navigator.clipboard.writeText(link)
     setCopiedProductId(id)
     if (window.showToast) {

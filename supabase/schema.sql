@@ -1,4 +1,4 @@
--- Supabase Schema for Tamupay Payment Gateway
+-- Supabase Schema for Lapterpay Payment Gateway
 -- Target Database: PostgreSQL (Supabase)
 
 -- Enable pgcrypto extension for generating random UUIDs and bcrypt hashes

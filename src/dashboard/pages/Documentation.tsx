@@ -15,10 +15,10 @@ export function Documentation() {
       <div className="max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center space-y-6">
         <Reveal>
           <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-red-600 bg-red-50 px-3 py-1 rounded-full">
-            <i className="fa-solid fa-book" /> TamuPay Docs
+            <i className="fa-solid fa-book" /> LapterPay Docs
           </span>
           <h1 className="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight mt-4">
-            Everything you need to integrate TamuPay
+            Everything you need to integrate LapterPay
           </h1>
           <p className="text-sm text-neutral-500 max-w-lg mx-auto leading-relaxed mt-3">
             Pick a topic from the menu on the left, or jump straight into getting started. Every guide includes real

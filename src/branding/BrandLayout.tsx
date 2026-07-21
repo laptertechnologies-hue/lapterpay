@@ -54,7 +54,7 @@ export function BrandLayout() {
 
     // Simulated reply
     setTimeout(() => {
-      setChatMessages(prev => [...prev, { text: 'Thanks for contacting TamuPay! A support agent will respond shortly on WhatsApp.', time: 'now', sender: 'agent' }])
+      setChatMessages(prev => [...prev, { text: 'Thanks for contacting LapterPay! A support agent will respond shortly on WhatsApp.', time: 'now', sender: 'agent' }])
     }, 1000)
   }
 
@@ -76,7 +76,7 @@ export function BrandLayout() {
 
       {/* Right side: Floating chat button + interactive card */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 max-w-[340px] sm:max-w-[380px]">
-        {/* Interactive Chat Card (TamuPay system colors: red, black, white) */}
+        {/* Interactive Chat Card (LapterPay system colors: red, black, white) */}
         {showChatCard && (
           <div className="bg-white rounded-3xl shadow-2xl border border-neutral-200 overflow-hidden flex flex-col w-[300px] sm:w-[360px] max-h-[460px] animate-fade-in mb-3">
             {/* Header: Dark charcoal with red highlight stripe */}
@@ -226,7 +226,7 @@ export function BrandLayout() {
             {/* Left: Logo */}
             <div className="flex items-center shrink-0">
               <Link to="/" className="flex items-center">
-                <img src="/tamu.png" alt="TamuPay" className={`w-auto transition-all duration-300 ${scrolled ? 'h-8 sm:h-9' : 'h-9 sm:h-11'}`} />
+                <img src="/lapterpay.png" alt="LapterPay" className={`w-auto transition-all duration-300 ${scrolled ? 'h-8 sm:h-9' : 'h-9 sm:h-11'}`} />
               </Link>
             </div>
 
@@ -339,13 +339,13 @@ export function BrandLayout() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
             {/* Brand details */}
             <div className="col-span-2 md:col-span-2 space-y-4">
-              <img src="/tamu.png" alt="TamuPay" className="h-10 w-auto" />
+              <img src="/lapterpay.png" alt="LapterPay" className="h-10 w-auto" />
               <p className="text-neutral-400 text-xs leading-relaxed max-w-sm">
                 Direct and secure payments for East Africa. Easily process MTN and Airtel mobile money collections, utility payouts, and automated commercial ledger bookkeeping.
               </p>
               <div className="space-y-1.5 text-neutral-400 text-xs font-medium">
                 <p className="flex items-center gap-2"><i className="fa-solid fa-phone text-red-500" /> +256 763 721005</p>
-                <p className="flex items-center gap-2"><i className="fa-solid fa-envelope text-red-500" /> support@tamupay.ug</p>
+                <p className="flex items-center gap-2"><i className="fa-solid fa-envelope text-red-500" /> support@lapterpay.ug</p>
                 <p className="flex items-center gap-2 text-neutral-500"><i className="fa-solid fa-location-dot text-red-500" /> Kampala, Uganda</p>
               </div>
               {/* Circular Social Icons — GitHub removed */}
@@ -404,7 +404,7 @@ export function BrandLayout() {
 
           <div className="border-t border-neutral-900 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-neutral-500 text-xs">
-              © {new Date().getFullYear()} TamuPay. All rights reserved.
+              © {new Date().getFullYear()} LapterPay. All rights reserved.
             </p>
             <p className="text-neutral-500 text-xs">
               Uganda's Reliable Mobile Money &amp; Card Gateway

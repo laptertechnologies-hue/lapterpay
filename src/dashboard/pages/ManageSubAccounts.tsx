@@ -20,8 +20,8 @@ export function ManageSubAccounts() {
 
   // Mock list states
   const [subAccounts, setSubAccounts] = useState([
-    { id: 'sub_1', name: 'Tamu Wifi - Wandegeya Branch', email: 'wandegeya@tamuwifi.com', phone: '+256771112233', status: 'Active', balance: 'UGX 450,000' },
-    { id: 'sub_2', name: 'Tamu Cafe - Ntinda', email: 'ntinda@tamucafe.com', phone: '+256702223344', status: 'Active', balance: 'UGX 1,200,000' }
+    { id: 'sub_1', name: 'Lapter Wifi - Wandegeya Branch', email: 'wandegeya@lapterwifi.com', phone: '+256771112233', status: 'Active', balance: 'UGX 450,000' },
+    { id: 'sub_2', name: 'Lapter Cafe - Ntinda', email: 'ntinda@laptercafe.com', phone: '+256702223344', status: 'Active', balance: 'UGX 1,200,000' }
   ])
 
   const [pendingRequests, setPendingRequests] = useState([
@@ -50,7 +50,7 @@ export function ManageSubAccounts() {
     const newReq = {
       id: 'req_' + Math.random().toString(36).substring(2, 9),
       name: searchBusiness,
-      email: 'business@tamu.com',
+      email: 'business@lapter.com',
       date: new Date().toISOString().split('T')[0],
       status: 'Pending'
     }
@@ -172,7 +172,7 @@ export function ManageSubAccounts() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-base font-semibold text-neutral-900">Sub Accounts</h2>
-          <p className="text-xs text-neutral-400 mt-0.5">Manage your subaccounts and requests for Tamu wifi</p>
+          <p className="text-xs text-neutral-400 mt-0.5">Manage your subaccounts and requests for Lapter Wifi</p>
         </div>
         <button
           onClick={() => setShowCreateModal(true)}

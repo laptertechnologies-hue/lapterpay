@@ -46,7 +46,7 @@ export function UserManagement() {
           const initialUser: User = {
             id: 'usr_1',
             name: merchant?.business_name || 'Admin User',
-            email: user.email || 'admin@tamupay.ug',
+            email: user.email || 'admin@lapterpay.ug',
             status: 'Active',
             accountStatus: 'active',
             joined: new Date(user.created_at || Date.now()).toLocaleDateString('en-US', {
@@ -142,7 +142,7 @@ export function UserManagement() {
   }
   
   // Business context
-  const [businessName, setBusinessName] = useState('Tamu wifi')
+  const [businessName, setBusinessName] = useState('Lapter Wifi')
   useEffect(() => {
     const savedName = localStorage.getItem('merchant_business_name')
     if (savedName) setBusinessName(savedName)

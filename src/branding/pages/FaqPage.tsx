@@ -4,7 +4,7 @@ import { Reveal } from '../../components/Reveal'
 
 const allFaqs = [
   {
-    q: 'How much does TamuPay cost?',
+    q: 'How much does LapterPay cost?',
     a: 'We bill a transparent flat fee of 3% per successful collection. Senders pay 0 startup, setup, or recurring monthly fees.',
   },
   {
@@ -13,7 +13,7 @@ const allFaqs = [
   },
   {
     q: 'Which regions are supported?',
-    a: 'TamuPay is fully live in Uganda with MTN & Airtel mobile money, bank disbursements, and utility topups. Kenya, Tanzania, and Rwanda will be released next.',
+    a: 'LapterPay is fully live in Uganda with MTN & Airtel mobile money, bank disbursements, and utility topups. Kenya, Tanzania, and Rwanda will be released next.',
   },
   {
     q: 'How long does merchant validation take?',
@@ -67,7 +67,7 @@ export function FaqPage() {
             Frequently Asked Questions
           </h1>
           <p className="text-sm sm:text-base text-neutral-300 max-w-xl mx-auto leading-relaxed">
-            Find answers to common questions about TamuPay collections, payouts, sandbox testing, and pricing setup.
+            Find answers to common questions about LapterPay collections, payouts, sandbox testing, and pricing setup.
           </p>
           <div className="max-w-md mx-auto relative">
             <input

@@ -1,5 +1,5 @@
 -- ============================================================================
--- TamuPay — Migration 002: Extend schema for full-system implementation
+-- LapterPay — Migration 002: Extend schema for full-system implementation
 -- Target Database: PostgreSQL (Supabase SQL Editor)
 --
 -- This migration is ADDITIVE ONLY — it does not modify or drop anything
@@ -177,6 +177,24 @@ CREATE TABLE IF NOT EXISTS public.admin_sessions (
     expires_at TIMESTAMP WITH TIME ZONE NOT NULL  -- enforce real session timeout server-side, not just a client toast
 );
 
+-- Real session tokens for the existing public.super_admins table (from
+-- init.sql, already seeded with username 'admin'). AdminLogin.tsx used to
+-- set `localStorage['super_admin_authenticated'] = 'true'` on success,
+-- which anyone can forge from devtools with zero credentials — this table
+-- backs a real server-issued, server-verified session token instead. Kept
+-- separate from admin_sessions/admin_staff above (that pair is for a
+-- future multi-staff-with-roles system); this one unblocks a real login
+-- gate today against the single super-admin account that already exists.
+CREATE TABLE IF NOT EXISTS public.super_admin_sessions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    super_admin_id UUID NOT NULL REFERENCES public.super_admins(id) ON DELETE CASCADE,
+    token_hash TEXT NOT NULL UNIQUE,   -- SHA-256 of the session token; never store the raw token
+    ip_address VARCHAR(45),
+    user_agent TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    expires_at TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
 ---------------------------------------------------------------------------
 -- 7. FLOAT TOP-UP REQUESTS
 -- Backs AdminFloat.tsx (currently 3 hardcoded local-state rows; approving
@@ -279,7 +297,7 @@ CREATE INDEX IF NOT EXISTS idx_audit_logs_target ON public.audit_logs (target_ta
 
 ---------------------------------------------------------------------------
 -- 12. EMAIL LOGS
--- Tracks every email TamuPay attempts to send once a real mailer is wired
+-- Tracks every email LapterPay attempts to send once a real mailer is wired
 -- up to server/src/services/emailTemplates.ts (currently that file's
 -- buildWelcomeEmail/buildOtpEmail/buildPasswordResetEmail functions exist
 -- but are never called or sent anywhere).
@@ -344,6 +362,7 @@ CREATE POLICY refund_requests_self_access ON public.refund_requests
 ALTER TABLE public.float_topup_requests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.admin_staff ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.admin_sessions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.super_admin_sessions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.platform_settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.otp_codes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.two_factor_secrets ENABLE ROW LEVEL SECURITY;
@@ -380,6 +399,7 @@ CREATE OR REPLACE FUNCTION public.cleanup_expired_security_records()
 RETURNS VOID AS $$
 BEGIN
     DELETE FROM public.admin_sessions WHERE expires_at < NOW();
+    DELETE FROM public.super_admin_sessions WHERE expires_at < NOW();
     DELETE FROM public.otp_codes WHERE expires_at < NOW() AND consumed_at IS NULL;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;

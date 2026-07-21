@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Lock, User, Eye, EyeOff, Shield } from 'lucide-react'
-import { supabase } from '../lib/supabase'
+import { adminApi, setAdminToken } from '../lib/adminApi'
 
 export function AdminLogin() {
   const navigate = useNavigate()
@@ -21,29 +21,23 @@ export function AdminLogin() {
 
     setLoading(true)
     try {
-      // Call public.verify_super_admin stored procedure cryptographically
-      const { data: isValid, error: rpcError } = await supabase.rpc('verify_super_admin', {
-        p_username: username,
-        p_password: password
-      })
+      // Credentials are verified server-side (server/src/routes/admin.ts),
+      // which itself compares against the bcrypt hash inside Postgres via
+      // the verify_super_admin RPC — the raw password never gets stored or
+      // logged. On success we get back a real, server-issued session token
+      // instead of a client-side flag anyone could fake from devtools.
+      const res = await adminApi.login(username, password)
 
-      if (rpcError) {
-        throw rpcError
-      }
-
-      if (isValid) {
-        localStorage.setItem('super_admin_authenticated', 'true')
-        localStorage.setItem('super_admin_username', username)
+      if (res.success && res.data) {
+        setAdminToken(res.data.token)
         if (window.showToast) {
           window.showToast('Super Admin authenticated successfully', 'success')
         }
         navigate('/admin-user')
-      } else {
-        setError('Invalid super admin credentials.')
       }
     } catch (err: any) {
       console.error('Super Admin Authentication Error:', err)
-      setError(err.message || 'Verification failed. Database connectivity issue.')
+      setError(err.message || 'Invalid super admin credentials.')
     } finally {
       setLoading(false)
     }
@@ -58,7 +52,7 @@ export function AdminLogin() {
             <Shield size={24} />
           </div>
           <h2 className="text-lg font-bold text-white tracking-tight">Super Admin Console</h2>
-          <p className="text-xs text-slate-400">TamuPay central administrative gateway</p>
+          <p className="text-xs text-slate-400">LapterPay central administrative gateway</p>
         </div>
 
         {error && (

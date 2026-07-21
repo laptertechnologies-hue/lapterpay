@@ -34,7 +34,7 @@ const METHOD_COLORS: Record<string, string> = {
 const FALLBACK_COLORS = ['#dc2626', '#0f172a', '#64748b', '#f59e0b', '#0ea5e9']
 
 export function DashboardHome() {
-  const [businessName, setBusinessName] = useState('Tamu wifi')
+  const [businessName, setBusinessName] = useState('Lapter Wifi')
   const [showBalance, setShowBalance] = useState(false)
   const [currency, setCurrency] = useState(localStorage.getItem('user_currency') || 'UGX')
   
@@ -453,7 +453,7 @@ export function DashboardHome() {
                           <Cell key={entry.name} fill={METHOD_COLORS[entry.name] || FALLBACK_COLORS[i % FALLBACK_COLORS.length]} />
                         ))}
                       </Pie>
-                      <Tooltip formatter={(value: number, name: string) => [`${value} txns`, name]} />
+                      <Tooltip formatter={(value: any, name: any) => [`${value} txns`, name]} />
                     </PieChart>
                   </ResponsiveContainer>
                   <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
@@ -536,7 +536,7 @@ export function DashboardHome() {
                   <XAxis dataKey="day" tick={{ fontSize: 9, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fontSize: 8, fill: '#94a3b8' }} axisLine={false} tickLine={false} width={36} />
                   <Tooltip
-                    formatter={(value: number) => [`${value.toLocaleString()} ${currency}`, 'Net volume']}
+                    formatter={(value: any) => [`${Number(value).toLocaleString()} ${currency}`, 'Net volume']}
                     contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e2e8f0' }}
                   />
                   <Area type="monotone" dataKey="volume" stroke="#10b981" strokeWidth={2} fill="url(#chart-grad)" />

@@ -73,7 +73,7 @@ export function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-neutral-900 uppercase tracking-wider">Email Inquiry</h4>
-                    <p className="text-sm text-neutral-800 font-bold mt-1">support@tamupay.ug</p>
+                    <p className="text-sm text-neutral-800 font-bold mt-1">support@lapterpay.ug</p>
                     <p className="text-2xs text-neutral-400 mt-0.5">General &amp; Developer Integration Help</p>
                   </div>
                 </div>

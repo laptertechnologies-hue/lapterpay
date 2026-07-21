@@ -1,5 +1,5 @@
 /**
- * TamuPay Email Templates
+ * LapterPay Email Templates
  * 
  * HTML email templates for:
  *  - Welcome email (sent on successful registration)
@@ -68,7 +68,7 @@ export function buildWelcomeEmail({
   accountNumber: string;
   email: string;
 }): { subject: string; html: string; text: string } {
-  const subject = `Welcome to TamuPay, ${businessName}!`;
+  const subject = `Welcome to LapterPay, ${businessName}!`;
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -87,7 +87,7 @@ export function buildWelcomeEmail({
 
               <!-- Header -->
               <div style="${HEADER_STYLES}">
-                <div style="${LOGO_STYLES}">TamuPay</div>
+                <div style="${LOGO_STYLES}">LapterPay</div>
                 <p style="margin:16px 0 0; color:#6b7280; font-size:14px;">Payment Gateway for East Africa</p>
               </div>
 
@@ -96,7 +96,7 @@ export function buildWelcomeEmail({
                 Welcome, ${fullName}! 🎉
               </p>
               <p style="font-size:15px; color:#374151; line-height:1.7; margin:0 0 20px;">
-                Your <strong>${businessName}</strong> merchant account has been successfully created on TamuPay.
+                Your <strong>${businessName}</strong> merchant account has been successfully created on LapterPay.
                 You're now ready to start integrating payments for your business.
               </p>
 
@@ -153,19 +153,19 @@ export function buildWelcomeEmail({
 
               <!-- CTA -->
               <div style="text-align:center; margin-bottom:24px;">
-                <a href="https://tamupay.ug/dashboard" style="display:inline-block; background:#011478; color:white; font-size:15px; font-weight:700; padding:14px 32px; border-radius:12px; text-decoration:none;">
+                <a href="https://lapterpay.ug/dashboard" style="display:inline-block; background:#011478; color:white; font-size:15px; font-weight:700; padding:14px 32px; border-radius:12px; text-decoration:none;">
                   Open Your Dashboard →
                 </a>
               </div>
 
               <p style="font-size:14px; color:#374151; line-height:1.7;">
                 If you have any questions, our support team is ready to help.<br />
-                Reply to this email or contact us at <a href="mailto:support@tamupay.ug" style="color:#011478;">support@tamupay.ug</a>.
+                Reply to this email or contact us at <a href="mailto:support@lapterpay.ug" style="color:#011478;">support@lapterpay.ug</a>.
               </p>
 
               <!-- Footer -->
               <div style="${FOOTER_STYLES}">
-                <p style="margin:0 0 4px;">© ${new Date().getFullYear()} TamuPay. All rights reserved.</p>
+                <p style="margin:0 0 4px;">© ${new Date().getFullYear()} LapterPay. All rights reserved.</p>
                 <p style="margin:0 0 4px;">Payment Gateway for East Africa · Live in Uganda</p>
                 <p style="margin:0;">
                   <a href="#" style="color:#9ca3af;">Privacy Policy</a> ·
@@ -183,7 +183,7 @@ export function buildWelcomeEmail({
 </html>`;
 
   const text = `
-Welcome to TamuPay, ${fullName}!
+Welcome to LapterPay, ${fullName}!
 
 Your ${businessName} merchant account has been successfully created.
 
@@ -198,11 +198,11 @@ Next Steps:
   2. Upload Business Documents — submit KYC for verification
   3. Go Live — start processing real payments once verified
 
-Open your dashboard: https://tamupay.ug/dashboard
+Open your dashboard: https://lapterpay.ug/dashboard
 
-Questions? Email us at support@tamupay.ug
+Questions? Email us at support@lapterpay.ug
 
-© ${new Date().getFullYear()} TamuPay. All rights reserved.
+© ${new Date().getFullYear()} LapterPay. All rights reserved.
   `.trim();
 
   return { subject, html, text };
@@ -222,7 +222,7 @@ export function buildOtpEmail({
   otpCode: string;
   expiresMinutes?: number;
 }): { subject: string; html: string; text: string } {
-  const subject = `TamuPay — Your verification code is ${otpCode}`;
+  const subject = `LapterPay — Your verification code is ${otpCode}`;
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -241,7 +241,7 @@ export function buildOtpEmail({
 
               <!-- Header -->
               <div style="${HEADER_STYLES}">
-                <div style="${LOGO_STYLES}">TamuPay</div>
+                <div style="${LOGO_STYLES}">LapterPay</div>
                 <p style="margin:16px 0 0; color:#6b7280; font-size:14px;">Payment Gateway for East Africa</p>
               </div>
 
@@ -250,7 +250,7 @@ export function buildOtpEmail({
                 Verify your email address
               </p>
               <p style="font-size:15px; color:#374151; line-height:1.7; margin:0 0 24px;">
-                Hi ${fullName}, use the code below to verify your email address <strong>${email}</strong> and complete your TamuPay account registration.
+                Hi ${fullName}, use the code below to verify your email address <strong>${email}</strong> and complete your LapterPay account registration.
               </p>
 
               <!-- OTP Code box -->
@@ -267,7 +267,7 @@ export function buildOtpEmail({
               <!-- Security note -->
               <div style="background:#fef9ec; border:1px solid #fde68a; border-radius:12px; padding:14px 18px; margin-bottom:24px;">
                 <p style="font-size:13px; color:#92400e; margin:0; line-height:1.6;">
-                  🔒 <strong>Security tip:</strong> TamuPay staff will never ask for your OTP code. Do not share this code with anyone. If you didn't request this code, please ignore this email.
+                  🔒 <strong>Security tip:</strong> LapterPay staff will never ask for your OTP code. Do not share this code with anyone. If you didn't request this code, please ignore this email.
                 </p>
               </div>
 
@@ -277,9 +277,9 @@ export function buildOtpEmail({
 
               <!-- Footer -->
               <div style="${FOOTER_STYLES}">
-                <p style="margin:0 0 4px;">© ${new Date().getFullYear()} TamuPay. All rights reserved.</p>
-                <p style="margin:0 0 4px;">This email was sent to ${email} because you registered on TamuPay.</p>
-                <p style="margin:0;">If this wasn't you, please contact <a href="mailto:support@tamupay.ug" style="color:#9ca3af;">support@tamupay.ug</a>.</p>
+                <p style="margin:0 0 4px;">© ${new Date().getFullYear()} LapterPay. All rights reserved.</p>
+                <p style="margin:0 0 4px;">This email was sent to ${email} because you registered on LapterPay.</p>
+                <p style="margin:0;">If this wasn't you, please contact <a href="mailto:support@lapterpay.ug" style="color:#9ca3af;">support@lapterpay.ug</a>.</p>
               </div>
 
             </td>
@@ -292,7 +292,7 @@ export function buildOtpEmail({
 </html>`;
 
   const text = `
-TamuPay — Email Verification
+LapterPay — Email Verification
 
 Hi ${fullName},
 
@@ -302,11 +302,11 @@ Your verification code for ${email} is:
 
 This code expires in ${expiresMinutes} minutes.
 
-Security tip: TamuPay staff will never ask for your OTP code. Do not share this code with anyone.
+Security tip: LapterPay staff will never ask for your OTP code. Do not share this code with anyone.
 
-If you did not request this, please contact support@tamupay.ug.
+If you did not request this, please contact support@lapterpay.ug.
 
-© ${new Date().getFullYear()} TamuPay. All rights reserved.
+© ${new Date().getFullYear()} LapterPay. All rights reserved.
   `.trim();
 
   return { subject, html, text };
@@ -324,7 +324,7 @@ export function buildPasswordResetEmail({
   email: string;
   resetUrl: string;
 }): { subject: string; html: string; text: string } {
-  const subject = 'TamuPay — Reset your password';
+  const subject = 'LapterPay — Reset your password';
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -343,7 +343,7 @@ export function buildPasswordResetEmail({
 
               <!-- Header -->
               <div style="${HEADER_STYLES}">
-                <div style="${LOGO_STYLES}">TamuPay</div>
+                <div style="${LOGO_STYLES}">LapterPay</div>
                 <p style="margin:16px 0 0; color:#6b7280; font-size:14px;">Payment Gateway for East Africa</p>
               </div>
 
@@ -351,7 +351,7 @@ export function buildPasswordResetEmail({
                 Reset your password
               </p>
               <p style="font-size:15px; color:#374151; line-height:1.7; margin:0 0 24px;">
-                Hi ${fullName}, we received a request to reset the password for your TamuPay account associated with <strong>${email}</strong>.
+                Hi ${fullName}, we received a request to reset the password for your LapterPay account associated with <strong>${email}</strong>.
               </p>
 
               <div style="text-align:center; margin-bottom:24px;">
@@ -373,8 +373,8 @@ export function buildPasswordResetEmail({
 
               <!-- Footer -->
               <div style="${FOOTER_STYLES}">
-                <p style="margin:0 0 4px;">© ${new Date().getFullYear()} TamuPay. All rights reserved.</p>
-                <p style="margin:0;">Questions? Contact <a href="mailto:support@tamupay.ug" style="color:#9ca3af;">support@tamupay.ug</a></p>
+                <p style="margin:0 0 4px;">© ${new Date().getFullYear()} LapterPay. All rights reserved.</p>
+                <p style="margin:0;">Questions? Contact <a href="mailto:support@lapterpay.ug" style="color:#9ca3af;">support@lapterpay.ug</a></p>
               </div>
 
             </td>
@@ -387,11 +387,11 @@ export function buildPasswordResetEmail({
 </html>`;
 
   const text = `
-TamuPay — Reset your password
+LapterPay — Reset your password
 
 Hi ${fullName},
 
-We received a request to reset the password for your TamuPay account (${email}).
+We received a request to reset the password for your LapterPay account (${email}).
 
 Click the link below to reset your password:
 ${resetUrl}
@@ -400,7 +400,7 @@ This link expires in 60 minutes.
 
 If you did not request a password reset, please ignore this email — your account is safe.
 
-© ${new Date().getFullYear()} TamuPay. All rights reserved.
+© ${new Date().getFullYear()} LapterPay. All rights reserved.
   `.trim();
 
   return { subject, html, text };

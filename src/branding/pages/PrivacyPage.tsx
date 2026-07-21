@@ -7,8 +7,8 @@ const sections = [
     title: '1. Overview',
     body: (
       <p>
-        This Privacy Policy explains how TamuPay ("we", "us") collects, uses, shares, and protects personal data when
-        you use our website, dashboard, and API (the "Service"). It applies to merchants who register with TamuPay and,
+        This Privacy Policy explains how LapterPay ("we", "us") collects, uses, shares, and protects personal data when
+        you use our website, dashboard, and API (the "Service"). It applies to merchants who register with LapterPay and,
         where relevant, to the customers your business transacts with through our rails. We process personal data in
         line with Uganda's Data Protection and Privacy Act, 2019.
       </p>
@@ -61,7 +61,7 @@ const sections = [
     body: (
       <p>
         All data in transit is encrypted over HTTPS/TLS. API secret keys are stored only as irreversible cryptographic
-        hashes — even TamuPay staff cannot view a generated secret after the moment it is issued. Database access is
+        hashes — even LapterPay staff cannot view a generated secret after the moment it is issued. Database access is
         governed by row-level security so a merchant's data is only reachable by that merchant's authenticated
         session (or by our backend using elevated, audited service credentials). We restrict payout-affecting API
         requests using IP allow-listing and idempotency protection to prevent replay/duplicate transactions.
@@ -94,7 +94,7 @@ const sections = [
         </ul>
         <p>
           To exercise any of these rights, email{' '}
-          <a href="mailto:support@tamupay.ug" className="text-red-600 font-semibold hover:underline">support@tamupay.ug</a>.
+          <a href="mailto:support@lapterpay.ug" className="text-red-600 font-semibold hover:underline">support@lapterpay.ug</a>.
         </p>
       </>
     ),
@@ -125,7 +125,7 @@ const sections = [
     body: (
       <p>
         Questions about this Privacy Policy can be sent to{' '}
-        <a href="mailto:support@tamupay.ug" className="text-red-600 font-semibold hover:underline">support@tamupay.ug</a>{' '}
+        <a href="mailto:support@lapterpay.ug" className="text-red-600 font-semibold hover:underline">support@lapterpay.ug</a>{' '}
         or via our <Link to="/contact" className="text-red-600 font-semibold hover:underline">Contact page</Link>.
       </p>
     ),
@@ -149,7 +149,7 @@ export function PrivacyPage() {
       <section className="py-14 sm:py-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <Reveal className="text-xs text-neutral-500 bg-neutral-50 border border-neutral-200 rounded-2xl p-4 leading-relaxed">
-            This document is a plain-language starting point for TamuPay's privacy practices. It is not a substitute
+            This document is a plain-language starting point for LapterPay's privacy practices. It is not a substitute
             for advice from a Uganda-licensed data protection or fintech-compliance lawyer, and should be reviewed by
             one before being relied on as your binding privacy notice.
           </Reveal>

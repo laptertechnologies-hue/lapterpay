@@ -130,7 +130,7 @@ export function PricingPage() {
         <Reveal className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight">Ready to integrate your payments?</h2>
           <p className="text-sm sm:text-base text-neutral-500 max-w-xl mx-auto">
-            Create your TamuPay profile, complete simple merchant checks, and collect local customer payments.
+            Create your LapterPay profile, complete simple merchant checks, and collect local customer payments.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <Link to="/register" className="btn-shimmer w-full sm:w-auto bg-red-600 text-white px-8 py-3.5 rounded-full text-sm font-bold hover:bg-red-700 transition-all text-center shadow-md border-0 hover:scale-[1.02]">

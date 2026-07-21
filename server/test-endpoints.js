@@ -1,4 +1,4 @@
-// A comprehensive script to verify Tamupay API Server security policies.
+// A comprehensive script to verify Lapterpay API Server security policies.
 // Usage: Node test-endpoints.js
 
 const path = require('path');
@@ -15,7 +15,7 @@ function hashApiKey(key) {
 }
 
 async function runTests() {
-  console.log('🧪 Starting Tamupay Security Verification Tests...\n');
+  console.log('🧪 Starting Lapterpay Security Verification Tests...\n');
 
   // ==========================================
   // SECTION A: DATABASE-INDEPENDENT TESTS

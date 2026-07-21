@@ -43,7 +43,7 @@ export async function authenticate(req: Request, res: Response, next: NextFuncti
       });
     }
 
-    // A. Verify if it's an API Key (Tamupay API keys start with 'tp_')
+    // A. Verify if it's an API Key (Lapterpay API keys start with 'tp_')
     if (token.startsWith('tp_')) {
       const hashedKey = crypto.createHash('sha256').update(token).digest('hex');
 

@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`=========================================`);
-  console.log(`🚀 Tamupay API Server started successfully`);
+  console.log(`🚀 Lapterpay API Server started successfully`);
   console.log(`📡 Listening on: http://localhost:${PORT}`);
   console.log(`🩺 Health check: http://localhost:${PORT}/health`);
   console.log(`=========================================`);

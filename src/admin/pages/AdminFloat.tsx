@@ -15,7 +15,7 @@ export function AdminFloat() {
   const [requests, setRequests] = useState<FloatRequest[]>([
     {
       id: 'FLT-8092',
-      merchant: 'Tamu wifi',
+      merchant: 'Lapter Wifi',
       amount: 'UGX 5,000,000',
       method: 'Bank Transfer (Stanbic)',
       referenceId: 'DEP-80277618BC',

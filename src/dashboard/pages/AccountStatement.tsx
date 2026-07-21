@@ -50,7 +50,7 @@ const mockStatementTxns: StatementTxn[] = [
 ]
 
 export function AccountStatement() {
-  const [businessName, setBusinessName] = useState('Tamu wifi')
+  const [businessName, setBusinessName] = useState('Lapter Wifi')
   const [activeQuickFilter, setActiveQuickFilter] = useState('This Month')
   const [startDate, setStartDate] = useState('2026-06-01')
   const [endDate, setEndDate] = useState('2026-06-30')

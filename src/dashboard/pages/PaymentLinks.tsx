@@ -32,14 +32,14 @@ export function PaymentLinks() {
       isFixedAmount: true,
       amount: '150000',
       description: 'Fees payment link for second term.',
-      redirectUrl: 'https://tamupay.ug/success',
-      callbackUrl: 'https://tamupay.ug/callback',
+      redirectUrl: 'https://lapterpay.ug/success',
+      callbackUrl: 'https://lapterpay.ug/callback',
       addExpiry: false,
       paymentMethod: 'Mobile Money & Card',
       allowedPayments: { mtn: true, airtel: true, card: true },
       requireCustInfo: true,
       createdAt: 'Jun 12, 2026',
-      url: 'https://tamupay.ug/pay/lnk_1'
+      url: 'https://lapterpay.ug/pay/lnk_1'
     },
     {
       id: 'lnk_2',
@@ -48,14 +48,14 @@ export function PaymentLinks() {
       isFixedAmount: true,
       amount: '50000',
       description: 'Monthly WiFi access subscription.',
-      redirectUrl: 'https://tamupay.ug/wifi-success',
-      callbackUrl: 'https://tamupay.ug/wifi-callback',
+      redirectUrl: 'https://lapterpay.ug/wifi-success',
+      callbackUrl: 'https://lapterpay.ug/wifi-callback',
       addExpiry: false,
       paymentMethod: 'Mobile Money',
       allowedPayments: { mtn: true, airtel: true, card: false },
       requireCustInfo: false,
       createdAt: 'Jun 20, 2026',
-      url: 'https://tamupay.ug/pay/lnk_2'
+      url: 'https://lapterpay.ug/pay/lnk_2'
     }
   ])
   const [showCreateModal, setShowCreateModal] = useState(false)
@@ -123,7 +123,7 @@ export function PaymentLinks() {
         month: 'short',
         day: 'numeric'
       }),
-      url: `https://tamupay.ug/pay/${newId}`
+      url: `https://lapterpay.ug/pay/${newId}`
     }
 
     setPaymentLinks(prev => [newLink, ...prev])

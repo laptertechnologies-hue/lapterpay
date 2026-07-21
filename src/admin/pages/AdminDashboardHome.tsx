@@ -30,11 +30,11 @@ interface SystemLog {
 }
 
 const mockSystemLogs: SystemLog[] = [
-  { id: 'tx_981', merchant: 'Tamu wifi', action: 'MTN Deposit Collection', amount: 'UGX 15,000', status: 'completed', time: '1 minute ago' },
-  { id: 'tx_980', merchant: 'Tamu wifi', action: 'MTN Deposit Collection', amount: 'UGX 10,000', status: 'completed', time: '5 minutes ago' },
+  { id: 'tx_981', merchant: 'Lapter Wifi', action: 'MTN Deposit Collection', amount: 'UGX 15,000', status: 'completed', time: '1 minute ago' },
+  { id: 'tx_980', merchant: 'Lapter Wifi', action: 'MTN Deposit Collection', amount: 'UGX 10,000', status: 'completed', time: '5 minutes ago' },
   { id: 'tx_979', merchant: 'Ntinda Cafe', action: 'Card Settlement Push', amount: 'UGX 150,000', status: 'completed', time: '12 minutes ago' },
   { id: 'tx_978', merchant: 'Kampala Logistics', action: 'Airtel Money Payout', amount: 'UGX 350,000', status: 'completed', time: '20 minutes ago' },
-  { id: 'tx_977', merchant: 'Tamu wifi', action: 'Airtel Collection Request', amount: 'UGX 5,000', status: 'failed', time: '28 minutes ago' }
+  { id: 'tx_977', merchant: 'Lapter Wifi', action: 'Airtel Collection Request', amount: 'UGX 5,000', status: 'failed', time: '28 minutes ago' }
 ]
 
 export function AdminDashboardHome() {
@@ -239,7 +239,7 @@ export function AdminDashboardHome() {
                   tickFormatter={(v: number) => `${(v / 1000000).toFixed(1)}M`}
                 />
                 <Tooltip
-                  formatter={(value: number) => [`UGX ${value.toLocaleString()}`, 'Volume']}
+                  formatter={(value: any) => [`UGX ${Number(value).toLocaleString()}`, 'Volume']}
                   contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e2e8f0' }}
                 />
                 <Area type="monotone" dataKey="volume" stroke="#d97706" strokeWidth={2.5} fill="url(#admin-chart-grad)" dot={{ r: 3, fill: '#d97706', strokeWidth: 1.5, stroke: '#fff' }} />

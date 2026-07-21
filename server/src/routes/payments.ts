@@ -140,7 +140,7 @@ router.post('/initialize', authenticate, idempotency, async (req, res, next) => 
         currency: transaction.currency,
         payment_method: transaction.payment_method,
         customer_identifier: transaction.customer_identifier,
-        checkout_url: `https://checkout.tamupay.com/pay/${transaction.id}`
+        checkout_url: `https://checkout.lapterpay.com/pay/${transaction.id}`
       }
     });
 

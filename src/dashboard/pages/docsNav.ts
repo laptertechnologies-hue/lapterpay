@@ -11,7 +11,7 @@ export interface DocNavGroup {
   items: DocNavItem[]
 }
 
-// Grouped, TamuPay-branded documentation navigation.
+// Grouped, LapterPay-branded documentation navigation.
 // Grouping (Start / Payment Methods / Platform / Help) is our own
 // information architecture — distinct from the flat card-grid layout
 // this was originally built from.
@@ -19,8 +19,8 @@ export const DOCS_NAV: DocNavGroup[] = [
   {
     label: 'Start here',
     items: [
-      { id: 'payments', title: 'Getting Started', desc: 'Quick start guide to begin integrating with Tamupay', icon: 'fa-solid fa-bolt', iconColor: '#dc2626' },
-      { id: 'api', title: 'API Reference', desc: 'Understanding the Tamupay API structure and endpoints', icon: 'fa-solid fa-code', iconColor: '#dc2626' },
+      { id: 'payments', title: 'Getting Started', desc: 'Quick start guide to begin integrating with Lapterpay', icon: 'fa-solid fa-bolt', iconColor: '#dc2626' },
+      { id: 'api', title: 'API Reference', desc: 'Understanding the Lapterpay API structure and endpoints', icon: 'fa-solid fa-code', iconColor: '#dc2626' },
       { id: 'sandbox', title: 'Sandbox Mode', desc: 'Test the API without real transactions or database changes', icon: 'fa-solid fa-vial', iconColor: '#dc2626' },
       { id: 'security', title: 'Security', desc: 'Security best practices and authentication standards', icon: 'fa-solid fa-shield-halved', iconColor: '#dc2626' },
     ],

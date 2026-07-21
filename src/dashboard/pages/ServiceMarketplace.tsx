@@ -25,7 +25,7 @@ const initialServices = [
   { id: '9', key: 'wallet_transfer', name: 'Internal Wallet Transfer', provider: 'Internal wallet transfer service for transferring funds between business wallets', type: 'disbursement', region: 'UG', price: 'Free' },
   { id: '10', key: 'bill_payments', name: 'Bill Payments', provider: 'Pay for Light, NWSC, TV, and so much more, fast, secure and all in one platform', type: 'disbursement', region: 'UG', price: 'Free' },
   { id: '11', key: 'card_payments', name: 'Card Payments', provider: 'Get paid through visa and Mastercard', type: 'collection', region: 'UG', price: 'Free' },
-  { id: '12', key: 'merchant_customization', name: 'Merchant Customization', provider: 'Personalize your Tamupay code with a one time fee', type: 'customization', region: 'GLOBAL', price: '50,000/=' }
+  { id: '12', key: 'merchant_customization', name: 'Merchant Customization', provider: 'Personalize your Lapterpay code with a one time fee', type: 'customization', region: 'GLOBAL', price: '50,000/=' }
 ]
 
 export function ServiceMarketplace() {

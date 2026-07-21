@@ -6,6 +6,9 @@ import keysRouter from './routes/keys';
 import paymentsRouter from './routes/payments';
 import floatRouter from './routes/float';
 import webhooksRouter from './routes/webhooks';
+import twoFactorRouter from './routes/twoFactor';
+import notificationsRouter from './routes/notifications';
+import adminRouter from './routes/admin';
 
 const app = express();
 
@@ -30,7 +33,7 @@ app.get('/health', (req, res) => {
     success: true,
     status: 'UP',
     timestamp: new Date().toISOString(),
-    service: 'Tamupay API Gateway Server'
+    service: 'Lapterpay API Gateway Server'
   });
 });
 
@@ -39,6 +42,9 @@ app.use('/api/v1/keys', keysRouter);
 app.use('/api/v1/payments', paymentsRouter);
 app.use('/api/v1/float', floatRouter);
 app.use('/api/v1/webhooks', webhooksRouter);
+app.use('/api/v1/2fa', twoFactorRouter);
+app.use('/api/v1/notifications', notificationsRouter);
+app.use('/api/v1/admin', adminRouter);
 
 // Base fallbacks for 404 Route NotFound
 app.use('*', (req, res, next) => {

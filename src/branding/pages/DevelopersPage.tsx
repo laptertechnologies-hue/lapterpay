@@ -36,7 +36,7 @@ export function DevelopersPage() {
             <Reveal variant="scale" delay={150} className="w-full min-w-0 max-w-xl mx-auto lg:max-w-none">
               <div className="rounded-2xl overflow-hidden shadow-2xl bg-neutral-950 p-2 border border-neutral-900">
                 <img
-                  src="/tamupay_dev_integration.png"
+                  src="/lapterpay_dev_integration.png"
                   alt="Developer integration mockup illustration"
                   className="w-full h-auto object-cover rounded-xl"
                   width={600}
@@ -88,7 +88,7 @@ export function DevelopersPage() {
                 </div>
                 <pre className="text-left text-neutral-250 leading-relaxed text-xs whitespace-pre-wrap">
 {`curl -X POST \\
-  "https://api.tamupay.ug/v1/payments/initialize" \\
+  "https://api.lapterpay.ug/v1/payments/initialize" \\
   -H "Authorization: Bearer tp_test_CcXqJGv8" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -105,7 +105,7 @@ export function DevelopersPage() {
 {`{
   "status": "pending",
   "reference": "tp_ref_1eQjkP8",
-  "checkout_url": "https://pay.tamupay.ug/...",
+  "checkout_url": "https://pay.lapterpay.ug/...",
   "expires_at": "2026-07-01T12:05:00Z"
 }`}
                   </pre>
@@ -239,7 +239,7 @@ export function DevelopersPage() {
         <Reveal className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight">Ready to integrate your payments?</h2>
           <p className="text-sm sm:text-base text-neutral-500 max-w-xl mx-auto">
-            Create your TamuPay profile, complete simple merchant checks, and collect local customer payments.
+            Create your LapterPay profile, complete simple merchant checks, and collect local customer payments.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <Link to="/register" className="btn-shimmer w-full sm:w-auto bg-red-600 text-white px-8 py-3.5 rounded-full text-sm font-bold hover:bg-red-700 transition-all text-center shadow-md border-0 hover:scale-[1.02]">

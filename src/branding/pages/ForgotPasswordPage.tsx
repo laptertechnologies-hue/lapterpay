@@ -52,7 +52,7 @@ export function ForgotPasswordPage() {
           {/* Logo */}
           <div className="flex justify-center mb-6">
             <Link to="/">
-              <img src="/tamu.png" alt="TamuPay" className="h-10 object-contain" />
+              <img src="/lapterpay.png" alt="LapterPay" className="h-10 object-contain" />
             </Link>
           </div>
 

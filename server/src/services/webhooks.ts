@@ -108,8 +108,8 @@ export async function dispatchWebhook(transactionId: string, event: WebhookPaylo
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'User-Agent': 'Tamupay-Webhook-Dispatcher/1.0',
-          'x-tamupay-signature': signatureHeader
+          'User-Agent': 'Lapterpay-Webhook-Dispatcher/1.0',
+          'x-lapterpay-signature': signatureHeader
         },
         body: payloadString,
         signal: controller.signal
