@@ -11,7 +11,7 @@ export function BusinessInformation() {
 
   // Form states loaded dynamically
   const [email, setEmail] = useState('alvinpunjab@gmail.com')
-  const [phoneNumber, setPhoneNumber] = useState('+256783721005')
+  const [phoneNumber, setPhoneNumber] = useState('+256761762626')
   const [address, setAddress] = useState('Kampala\nBanda')
   const [businessName, setBusinessName] = useState('Lapter Wifi')
   const [accountNumber, setAccountNumber] = useState('261775810270')

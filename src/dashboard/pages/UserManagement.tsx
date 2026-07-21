@@ -76,7 +76,7 @@ export function UserManagement() {
           const initialUser: User = {
             id: 'usr_1',
             name: merchant?.business_name || 'Admin User',
-            email: user.email || 'admin@lapterpay.ug',
+            email: user.email || 'admin@lapterpay.com',
             status: 'Active',
             accountStatus: 'active',
             joined: new Date(user.created_at || Date.now()).toLocaleDateString('en-US', {
@@ -86,7 +86,7 @@ export function UserManagement() {
             }),
             emailVerification: 'Verified',
             twoFactorStatus: 'Enabled',
-            phone: merchant?.contact_phone || '+256783721005',
+            phone: merchant?.contact_phone || '+256761762626',
             role: 'Owner',
             roleId: ''
           }

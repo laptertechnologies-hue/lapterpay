@@ -17,6 +17,9 @@ export function BrandLayout() {
     { text: 'Hi! Let us know if you have any questions about integrations.', time: 'now', sender: 'agent' }
   ])
 
+  // Cookie consent banner state
+  const [showCookieBanner, setShowCookieBanner] = useState(() => !localStorage.getItem('lapterpay_cookie_consent'))
+
   // Close mobile menu on route change
   useEffect(() => setMobileMenuOpen(false), [location.pathname])
 
@@ -65,7 +68,7 @@ export function BrandLayout() {
       
       {/* Left side: WhatsApp support */}
       <a
-        href="https://wa.me/256763721005"
+        href="https://wa.me/256761762626"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 left-6 z-50 bg-[#25D366] hover:bg-[#20ba5a] text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110"
@@ -344,8 +347,8 @@ export function BrandLayout() {
                 Direct and secure payments for East Africa. Easily process MTN and Airtel mobile money collections, utility payouts, and automated commercial ledger bookkeeping.
               </p>
               <div className="space-y-1.5 text-neutral-400 text-xs font-medium">
-                <p className="flex items-center gap-2"><i className="fa-solid fa-phone text-red-500" /> +256 763 721005</p>
-                <p className="flex items-center gap-2"><i className="fa-solid fa-envelope text-red-500" /> support@lapterpay.ug</p>
+                <p className="flex items-center gap-2"><i className="fa-solid fa-phone text-red-500" /> 0761762626</p>
+                <p className="flex items-center gap-2"><i className="fa-solid fa-envelope text-red-500" /> support@lapterpay.com</p>
                 <p className="flex items-center gap-2 text-neutral-500"><i className="fa-solid fa-location-dot text-red-500" /> Kampala, Uganda</p>
               </div>
               {/* Circular Social Icons — GitHub removed */}
@@ -412,6 +415,47 @@ export function BrandLayout() {
           </div>
         </div>
       </footer>
+
+      {/* Cookie Acceptance Policy Banner */}
+      {showCookieBanner && (
+        <div className="fixed bottom-6 right-6 z-[100] max-w-sm bg-neutral-950/95 backdrop-blur-md text-white p-5 rounded-2xl shadow-2xl border border-neutral-800 animate-fade-in flex flex-col gap-4">
+          <div className="flex justify-between items-start gap-4">
+            <div className="flex gap-2.5 items-center">
+              <span className="text-xl">🍪</span>
+              <h4 className="text-sm font-bold tracking-tight text-white">Cookie Consent</h4>
+            </div>
+            <button
+              onClick={() => setShowCookieBanner(false)}
+              className="text-neutral-400 hover:text-white transition-colors bg-transparent border-0 cursor-pointer"
+            >
+              <i className="fa-solid fa-xmark text-sm" />
+            </button>
+          </div>
+          <p className="text-neutral-350 text-xs leading-relaxed">
+            We use cookies to personalize content, analyze our web traffic, and secure transaction workflows. For more details, please review our <Link to="/privacy" className="text-red-500 hover:underline">Privacy Policy</Link>.
+          </p>
+          <div className="flex items-center gap-3 pt-1">
+            <button
+              onClick={() => {
+                localStorage.setItem('lapterpay_cookie_consent', 'true')
+                setShowCookieBanner(false)
+              }}
+              className="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold text-xs py-2.5 px-4 rounded-xl transition-all cursor-pointer border-0 active:scale-98"
+            >
+              Accept Cookies
+            </button>
+            <button
+              onClick={() => {
+                localStorage.setItem('lapterpay_cookie_consent', 'false')
+                setShowCookieBanner(false)
+              }}
+              className="flex-1 border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-500 font-semibold text-xs py-2.5 px-4 rounded-xl transition-all cursor-pointer bg-transparent active:scale-98"
+            >
+              Decline
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

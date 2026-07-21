@@ -165,7 +165,7 @@ export function RegisterPage() {
 
   const handlePhoneChange = (val: string) => {
     setForm(f => ({ ...f, phone: val }));
-    if (val === '+256763721005') {
+    if (val === '+256761762626') {
       setPhoneError('The business phone has already been taken.');
     } else {
       setPhoneError('');

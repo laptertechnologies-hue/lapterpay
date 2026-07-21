@@ -168,8 +168,8 @@ const sections = [
     body: (
       <p>
         Questions about these Terms can be sent to{' '}
-        <a href="mailto:support@lapterpay.ug" className="text-red-600 font-semibold hover:underline">support@lapterpay.ug</a>{' '}
-        or +256 763 721005, or via our <Link to="/contact" className="text-red-600 font-semibold hover:underline">Contact page</Link>.
+        <a href="mailto:support@lapterpay.com" className="text-red-600 font-semibold hover:underline">support@lapterpay.com</a>{' '}
+        or 0761762626, or via our <Link to="/contact" className="text-red-600 font-semibold hover:underline">Contact page</Link>.
       </p>
     ),
   },

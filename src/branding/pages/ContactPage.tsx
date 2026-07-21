@@ -62,7 +62,7 @@ export function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-neutral-900 uppercase tracking-wider">Phone Support</h4>
-                    <p className="text-sm text-neutral-800 font-bold mt-1">+256 763 721005</p>
+                    <p className="text-sm text-neutral-800 font-bold mt-1">0761762626</p>
                     <p className="text-2xs text-neutral-400 mt-0.5">Monday to Friday, 8:00 AM — 6:00 PM</p>
                   </div>
                 </div>
@@ -73,7 +73,7 @@ export function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-neutral-900 uppercase tracking-wider">Email Inquiry</h4>
-                    <p className="text-sm text-neutral-800 font-bold mt-1">support@lapterpay.ug</p>
+                    <p className="text-sm text-neutral-800 font-bold mt-1">support@lapterpay.com</p>
                     <p className="text-2xs text-neutral-400 mt-0.5">General &amp; Developer Integration Help</p>
                   </div>
                 </div>
